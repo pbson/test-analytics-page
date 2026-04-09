@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Cardamon Cloud — Analytics Test Page</title>
+  <script defer src="http://localhost:8080/t.js" data-site="YOUR-COMPONENT-ID-HERE"></script>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Inter', system-ui, sans-serif;
+      background: #0d0f14;
+      color: #e2e8f0;
+      min-height: 100vh;
+    }
+
+    nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1.25rem 2.5rem;
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+      backdrop-filter: blur(12px);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    nav .logo {
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: #fff;
+      letter-spacing: -0.02em;
+    }
+
+    nav .logo span { color: #598C88; }
+
+    nav ul {
+      display: flex;
+      gap: 2rem;
+      list-style: none;
+    }
+
+    nav ul a {
+      color: #94a3b8;
+      text-decoration: none;
+      font-size: 0.875rem;
+      transition: color 0.2s;
+    }
+
+    nav ul a:hover { color: #e2e8f0; }
+
+    nav .cta {
+      background: #598C88;
+      color: #fff;
+      border: none;
+      padding: 0.5rem 1.25rem;
+      font-size: 0.875rem;
+      font-weight: 500;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+
+    nav .cta:hover { background: #4a7a76; }
+
+    /* Hero */
+    .hero {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 7rem 2rem 5rem;
+      text-align: center;
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      background: rgba(89,140,136,0.12);
+      border: 1px solid rgba(89,140,136,0.3);
+      color: #598C88;
+      font-size: 0.75rem;
+      font-weight: 600;
+      padding: 0.3rem 0.85rem;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      margin-bottom: 2rem;
+    }
+
+    h1 {
+      font-size: clamp(2.5rem, 5vw, 4rem);
+      font-weight: 700;
+      line-height: 1.1;
+      letter-spacing: -0.03em;
+      margin-bottom: 1.5rem;
+      background: linear-gradient(135deg, #fff 0%, #94a3b8 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .subtitle {
+      font-size: 1.125rem;
+      color: #64748b;
+      max-width: 540px;
+      margin: 0 auto 2.5rem;
+      line-height: 1.7;
+    }
+
+    .hero-actions {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+
+    .btn-primary {
+      background: #598C88;
+      color: #fff;
+      border: none;
+      padding: 0.875rem 2rem;
+      font-size: 0.9rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.2s, transform 0.1s;
+    }
+
+    .btn-primary:hover { background: #4a7a76; transform: translateY(-1px); }
+
+    .btn-outline {
+      background: transparent;
+      color: #94a3b8;
+      border: 1px solid rgba(255,255,255,0.1);
+      padding: 0.875rem 2rem;
+      font-size: 0.9rem;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .btn-outline:hover { border-color: rgba(255,255,255,0.25); color: #e2e8f0; }
+
+    /* Features */
+    .features {
+      max-width: 1100px;
+      margin: 4rem auto;
+      padding: 0 2rem;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1.5rem;
+    }
+
+    .feature-card {
+      background: rgba(255,255,255,0.03);
+      border: 1px solid rgba(255,255,255,0.07);
+      padding: 2rem;
+      transition: border-color 0.2s, transform 0.2s;
+    }
+
+    .feature-card:hover {
+      border-color: rgba(89,140,136,0.3);
+      transform: translateY(-2px);
+    }
+
+    .feature-icon {
+      width: 2.5rem;
+      height: 2.5rem;
+      background: rgba(89,140,136,0.1);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 1.25rem;
+      font-size: 1.1rem;
+    }
+
+    .feature-card h3 {
+      font-size: 1rem;
+      font-weight: 600;
+      color: #e2e8f0;
+      margin-bottom: 0.5rem;
+    }
+
+    .feature-card p {
+      font-size: 0.875rem;
+      color: #64748b;
+      line-height: 1.6;
+    }
+
+    /* Pages for tracking */
+    .pages {
+      max-width: 1100px;
+      margin: 0 auto 6rem;
+      padding: 0 2rem;
+      text-align: center;
+    }
+
+    .pages h2 {
+      font-size: 1.75rem;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      margin-bottom: 1rem;
+    }
+
+    .pages p { color: #64748b; margin-bottom: 2.5rem; }
+
+    .page-links {
+      display: flex;
+      gap: 1rem;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    .page-links a {
+      color: #598C88;
+      text-decoration: none;
+      font-size: 0.875rem;
+      font-weight: 500;
+      padding: 0.5rem 1rem;
+      border: 1px solid rgba(89,140,136,0.3);
+      transition: all 0.2s;
+    }
+
+    .page-links a:hover {
+      background: rgba(89,140,136,0.1);
+    }
+
+    footer {
+      border-top: 1px solid rgba(255,255,255,0.06);
+      padding: 2rem;
+      text-align: center;
+      color: #334155;
+      font-size: 0.8rem;
+    }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <div class="logo">Root<span>&</span>Branch</div>
+    <ul>
+      <li><a href="#">Product</a></li>
+      <li><a href="#">Pricing</a></li>
+      <li><a href="#">Docs</a></li>
+      <li><a href="#">Blog</a></li>
+    </ul>
+    <button class="cta">Get Started</button>
+  </nav>
+
+  <section class="hero">
+    <div class="badge">🌱 Analytics Test Page</div>
+    <h1>Deploy Greener,<br/>Scale Smarter</h1>
+    <p class="subtitle">
+      A mock landing page to test the Cardamon Cloud analytics tracker.
+      Navigate around, click links, and watch the beacons fire.
+    </p>
+    <div class="hero-actions">
+      <button class="btn-primary" onclick="window.location.href='#features'">Explore Features</button>
+      <button class="btn-outline">View Docs</button>
+    </div>
+  </section>
+
+  <section class="features" id="features">
+    <div class="feature-card">
+      <div class="feature-icon">🚀</div>
+      <h3>Zero-Config Deployments</h3>
+      <p>Push your code and get a live URL in seconds. No YAML, no Kubernetes expertise required.</p>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon">🌍</div>
+      <h3>Carbon-Aware Routing</h3>
+      <p>Real-time carbon intensity data per region. Know the environmental cost of every request.</p>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon">📊</div>
+      <h3>Privacy Analytics</h3>
+      <p>Cookieless, GDPR-compliant page view tracking. No personal data collected, ever.</p>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon">🔒</div>
+      <h3>Automatic TLS</h3>
+      <p>Free SSL certificates provisioned automatically for every custom domain you add.</p>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon">⚡</div>
+      <h3>Instant Scaling</h3>
+      <p>Scale from 1 to 100 replicas with a single slider. Pay only for what you use.</p>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon">🗄️</div>
+      <h3>Managed Databases</h3>
+      <p>PostgreSQL, MySQL, and Redis — provisioned in one click with automatic backups.</p>
+    </div>
+  </section>
+
+  <section class="pages">
+    <h2>Navigate to trigger more beacons</h2>
+    <p>Click links below to simulate multi-page visits and test duration tracking.</p>
+    <div class="page-links">
+      <a href="#pricing">Pricing</a>
+      <a href="#docs">Documentation</a>
+      <a href="#blog">Blog</a>
+      <a href="#contact">Contact</a>
+      <a href="#about">About</a>
+    </div>
+  </section>
+
+  <footer>
+    &copy; 2026 Root &amp; Branch · Analytics test page · Tracker beaconing to localhost:8080
+  </footer>
+
+</body>
+</html>
