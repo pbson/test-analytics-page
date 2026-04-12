@@ -9,6 +9,9 @@ on:
   workflow_dispatch:
   reaction: "eyes"
 
+engine:
+  id: gemini
+
 timeout-minutes: 60
 
 permissions: read-all
