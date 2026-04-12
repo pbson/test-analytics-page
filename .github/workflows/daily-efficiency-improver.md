@@ -24,6 +24,7 @@ network:
   - python
   - rust
   - java
+  - generativelanguage.googleapis.com
 
 safe-outputs:
   add-comment:
