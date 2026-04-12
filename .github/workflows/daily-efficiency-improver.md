@@ -10,7 +10,7 @@ on:
   reaction: "eyes"
 
 engine:
-  id: gemini
+  id: claude
 
 timeout-minutes: 60
 
