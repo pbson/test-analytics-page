@@ -1,0 +1,4 @@
+- [Repository Structure](repository-structure.md) — Project overview, file layout, and build system
+- [Task Status](task-status.md) — Tracking which tasks were last run and priorities
+- [Opportunities Backlog](opportunities-backlog.md) — Identified energy efficiency improvements
+- [Completed Work](completed-work.md) — PRs submitted and outcomes
