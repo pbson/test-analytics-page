@@ -1,312 +1,917 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Cardamon Cloud — Analytics Test Page</title>
-  <script defer src="http://localhost:8080/t.js" data-site="YOUR-COMPONENT-ID-HERE"></script>
-  <style>
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+<!doctype html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>MegaStack - The Ultimate Cloud Platform For Everything</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.21/lodash.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.30.1/moment.min.js"></script>
+    <style>
+      @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap');
 
-    body {
-      font-family: 'Inter', system-ui, sans-serif;
-      background: #0d0f14;
-      color: #e2e8f0;
-      min-height: 100vh;
-    }
+      * { box-sizing: border-box; margin: 0; padding: 0; }
 
-    nav {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 1.25rem 2.5rem;
-      border-bottom: 1px solid rgba(255,255,255,0.06);
-      backdrop-filter: blur(12px);
-      position: sticky;
-      top: 0;
-      z-index: 100;
-    }
+      body {
+        font-family: 'Inter', sans-serif;
+        background: #0a0a0f;
+        color: #e2e8f0;
+        overflow-x: hidden;
+      }
 
-    nav .logo {
-      font-size: 1.1rem;
-      font-weight: 700;
-      color: #fff;
-      letter-spacing: -0.02em;
-    }
+      /* ===== ANIMATED BACKGROUND PARTICLES ===== */
+      .bg-particles {
+        position: fixed;
+        top: 0; left: 0;
+        width: 100%; height: 100%;
+        z-index: 0;
+        pointer-events: none;
+      }
+      .particle {
+        position: absolute;
+        border-radius: 50%;
+        animation: float-particle linear infinite;
+      }
+      @keyframes float-particle {
+        0% { transform: translateY(100vh) rotate(0deg); opacity: 0; }
+        10% { opacity: 1; }
+        90% { opacity: 1; }
+        100% { transform: translateY(-100vh) rotate(720deg); opacity: 0; }
+      }
 
-    nav .logo span { color: #598C88; }
+      /* ===== CONTINUOUS GRADIENT ANIMATION ===== */
+      .gradient-bg {
+        position: fixed;
+        top: 0; left: 0;
+        width: 300%; height: 300%;
+        background: linear-gradient(45deg, #0a0a0f, #1a0a2e, #0a1628, #0a0a0f, #1a0a2e, #0a1628);
+        background-size: 600% 600%;
+        animation: gradient-shift 8s ease infinite;
+        z-index: 0;
+      }
+      @keyframes gradient-shift {
+        0% { background-position: 0% 50%; }
+        25% { background-position: 100% 50%; }
+        50% { background-position: 100% 100%; }
+        75% { background-position: 0% 100%; }
+        100% { background-position: 0% 50%; }
+      }
 
-    nav ul {
-      display: flex;
-      gap: 2rem;
-      list-style: none;
-    }
+      /* ===== GLOWING ORB ===== */
+      .glow-orb {
+        position: fixed;
+        width: 600px; height: 600px;
+        border-radius: 50%;
+        background: radial-gradient(circle, rgba(89,140,136,0.15), transparent 70%);
+        animation: orb-pulse 4s ease-in-out infinite, orb-move 10s ease-in-out infinite;
+        z-index: 1;
+        top: -200px; left: -200px;
+      }
+      .glow-orb-2 {
+        position: fixed;
+        width: 500px; height: 500px;
+        border-radius: 50%;
+        background: radial-gradient(circle, rgba(140,89,136,0.12), transparent 70%);
+        animation: orb-pulse 5s ease-in-out infinite reverse, orb-move-2 12s ease-in-out infinite;
+        z-index: 1;
+        bottom: -200px; right: -200px;
+      }
+      .glow-orb-3 {
+        position: fixed;
+        width: 400px; height: 400px;
+        border-radius: 50%;
+        background: radial-gradient(circle, rgba(89,100,200,0.1), transparent 70%);
+        animation: orb-pulse 6s ease-in-out infinite, orb-move-3 15s ease-in-out infinite;
+        z-index: 1;
+        top: 50%; left: 50%;
+      }
+      @keyframes orb-pulse {
+        0%, 100% { transform: scale(1); opacity: 0.5; }
+        50% { transform: scale(1.3); opacity: 1; }
+      }
+      @keyframes orb-move {
+        0%, 100% { top: -200px; left: -200px; }
+        50% { top: 30%; left: 40%; }
+      }
+      @keyframes orb-move-2 {
+        0%, 100% { bottom: -200px; right: -200px; }
+        50% { bottom: 20%; right: 30%; }
+      }
+      @keyframes orb-move-3 {
+        0%, 100% { top: 50%; left: 50%; }
+        33% { top: 10%; left: 80%; }
+        66% { top: 70%; left: 20%; }
+      }
 
-    nav ul a {
-      color: #94a3b8;
-      text-decoration: none;
-      font-size: 0.875rem;
-      transition: color 0.2s;
-    }
+      /* ===== NAV ===== */
+      nav {
+        position: sticky;
+        top: 0;
+        z-index: 1000;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 1.25rem 2.5rem;
+        background: rgba(10,10,15,0.7);
+        backdrop-filter: blur(20px);
+        -webkit-backdrop-filter: blur(20px);
+        border-bottom: 1px solid rgba(255,255,255,0.06);
+      }
+      .logo { font-size: 1.2rem; font-weight: 800; color: #fff; }
+      .logo span { color: #598c88; }
+      nav ul { display: flex; gap: 2rem; list-style: none; }
+      nav ul a {
+        color: #94a3b8;
+        text-decoration: none;
+        font-size: 0.875rem;
+        transition: color 0.3s ease, text-shadow 0.3s ease;
+        position: relative;
+      }
+      nav ul a::after {
+        content: '';
+        position: absolute;
+        bottom: -4px; left: 0;
+        width: 0; height: 2px;
+        background: #598c88;
+        transition: width 0.3s ease;
+      }
+      nav ul a:hover { color: #fff; text-shadow: 0 0 20px rgba(89,140,136,0.5); }
+      nav ul a:hover::after { width: 100%; }
+      nav .cta-btn {
+        background: linear-gradient(135deg, #598c88, #4a7a76);
+        color: #fff;
+        border: none;
+        padding: 0.6rem 1.5rem;
+        font-size: 0.875rem;
+        font-weight: 600;
+        cursor: pointer;
+        border-radius: 6px;
+        transition: all 0.3s ease;
+        box-shadow: 0 4px 15px rgba(89,140,136,0.3);
+      }
+      nav .cta-btn:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 8px 25px rgba(89,140,136,0.5);
+      }
 
-    nav ul a:hover { color: #e2e8f0; }
+      /* ===== HERO ===== */
+      .hero {
+        position: relative;
+        z-index: 10;
+        max-width: 900px;
+        margin: 0 auto;
+        padding: 8rem 2rem 6rem;
+        text-align: center;
+      }
+      .hero-badge {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+        background: rgba(89,140,136,0.1);
+        border: 1px solid rgba(89,140,136,0.25);
+        color: #7ab5b0;
+        font-size: 0.75rem;
+        font-weight: 600;
+        padding: 0.4rem 1rem;
+        border-radius: 100px;
+        text-transform: uppercase;
+        letter-spacing: 0.08em;
+        margin-bottom: 2rem;
+        animation: badge-glow 2s ease-in-out infinite;
+      }
+      @keyframes badge-glow {
+        0%, 100% { box-shadow: 0 0 10px rgba(89,140,136,0.1); }
+        50% { box-shadow: 0 0 25px rgba(89,140,136,0.3); }
+      }
+      .hero h1 {
+        font-size: 4.5rem;
+        font-weight: 900;
+        line-height: 1.05;
+        letter-spacing: -0.04em;
+        margin-bottom: 1.5rem;
+        background: linear-gradient(135deg, #ffffff 0%, #94a3b8 50%, #598c88 100%);
+        background-size: 200% 200%;
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        animation: text-shimmer 5s ease infinite;
+      }
+      @keyframes text-shimmer {
+        0%, 100% { background-position: 0% 50%; }
+        50% { background-position: 100% 50%; }
+      }
+      .hero .subtitle {
+        font-size: 1.2rem;
+        color: #64748b;
+        max-width: 580px;
+        margin: 0 auto 3rem;
+        line-height: 1.8;
+      }
+      .hero-buttons {
+        display: flex;
+        gap: 1rem;
+        justify-content: center;
+        flex-wrap: wrap;
+      }
+      .btn-hero {
+        padding: 1rem 2.5rem;
+        font-size: 1rem;
+        font-weight: 600;
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        text-decoration: none;
+      }
+      .btn-hero.primary {
+        background: linear-gradient(135deg, #598c88, #4a7a76);
+        color: #fff;
+        box-shadow: 0 4px 20px rgba(89,140,136,0.4);
+      }
+      .btn-hero.primary:hover {
+        transform: translateY(-3px) scale(1.02);
+        box-shadow: 0 8px 30px rgba(89,140,136,0.6);
+      }
+      .btn-hero.secondary {
+        background: rgba(255,255,255,0.05);
+        color: #94a3b8;
+        border: 1px solid rgba(255,255,255,0.1);
+      }
+      .btn-hero.secondary:hover {
+        background: rgba(255,255,255,0.1);
+        color: #fff;
+        transform: translateY(-2px);
+      }
 
-    nav .cta {
-      background: #598C88;
-      color: #fff;
-      border: none;
-      padding: 0.5rem 1.25rem;
-      font-size: 0.875rem;
-      font-weight: 500;
-      cursor: pointer;
-      transition: background 0.2s;
-    }
+      /* ===== STATS BAR ===== */
+      .stats-bar {
+        position: relative;
+        z-index: 10;
+        display: flex;
+        justify-content: center;
+        gap: 4rem;
+        padding: 3rem 2rem;
+        margin-bottom: 2rem;
+      }
+      .stat-item {
+        text-align: center;
+        animation: counter-pop 0.6s ease forwards;
+        opacity: 0;
+      }
+      .stat-item:nth-child(1) { animation-delay: 0.2s; }
+      .stat-item:nth-child(2) { animation-delay: 0.4s; }
+      .stat-item:nth-child(3) { animation-delay: 0.6s; }
+      .stat-item:nth-child(4) { animation-delay: 0.8s; }
+      @keyframes counter-pop {
+        0% { opacity: 0; transform: translateY(20px); }
+        100% { opacity: 1; transform: translateY(0); }
+      }
+      .stat-number {
+        font-size: 2.5rem;
+        font-weight: 800;
+        color: #598c88;
+        display: block;
+      }
+      .stat-label {
+        font-size: 0.8rem;
+        color: #64748b;
+        text-transform: uppercase;
+        letter-spacing: 0.1em;
+        margin-top: 0.25rem;
+      }
 
-    nav .cta:hover { background: #4a7a76; }
+      /* ===== FEATURES ===== */
+      .features {
+        position: relative;
+        z-index: 10;
+        max-width: 1200px;
+        margin: 4rem auto;
+        padding: 0 2rem;
+      }
+      .features .section-title {
+        text-align: center;
+        font-size: 2.5rem;
+        font-weight: 800;
+        margin-bottom: 1rem;
+        letter-spacing: -0.03em;
+      }
+      .features .section-sub {
+        text-align: center;
+        color: #64748b;
+        margin-bottom: 4rem;
+        font-size: 1.1rem;
+      }
+      .features-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 1.5rem;
+      }
+      .feature-card {
+        background: rgba(255,255,255,0.02);
+        border: 1px solid rgba(255,255,255,0.06);
+        border-radius: 12px;
+        padding: 2.5rem 2rem;
+        transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        position: relative;
+        overflow: hidden;
+      }
+      .feature-card::before {
+        content: '';
+        position: absolute;
+        top: 0; left: 0;
+        width: 100%; height: 100%;
+        background: linear-gradient(135deg, rgba(89,140,136,0.05), transparent);
+        opacity: 0;
+        transition: opacity 0.4s ease;
+      }
+      .feature-card:hover {
+        border-color: rgba(89,140,136,0.3);
+        transform: translateY(-8px);
+        box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+      }
+      .feature-card:hover::before { opacity: 1; }
+      .feature-icon {
+        width: 3rem; height: 3rem;
+        background: rgba(89,140,136,0.1);
+        border-radius: 10px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.3rem;
+        margin-bottom: 1.5rem;
+      }
+      .feature-card h3 {
+        font-size: 1.1rem;
+        font-weight: 700;
+        margin-bottom: 0.75rem;
+        color: #e2e8f0;
+      }
+      .feature-card p {
+        font-size: 0.9rem;
+        color: #64748b;
+        line-height: 1.7;
+      }
 
-    /* Hero */
-    .hero {
-      max-width: 800px;
-      margin: 0 auto;
-      padding: 7rem 2rem 5rem;
-      text-align: center;
-    }
+      /* ===== TESTIMONIALS ===== */
+      .testimonials {
+        position: relative;
+        z-index: 10;
+        max-width: 1200px;
+        margin: 6rem auto;
+        padding: 0 2rem;
+      }
+      .testimonials .section-title {
+        text-align: center;
+        font-size: 2.5rem;
+        font-weight: 800;
+        margin-bottom: 3rem;
+      }
+      .testimonial-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 1.5rem;
+      }
+      .testimonial-card {
+        background: rgba(255,255,255,0.03);
+        border: 1px solid rgba(255,255,255,0.06);
+        border-radius: 12px;
+        padding: 2rem;
+        transition: transform 0.3s ease;
+      }
+      .testimonial-card:hover { transform: scale(1.03); }
+      .testimonial-stars { color: #f59e0b; margin-bottom: 1rem; font-size: 0.9rem; }
+      .testimonial-text {
+        color: #94a3b8;
+        font-size: 0.9rem;
+        line-height: 1.7;
+        margin-bottom: 1.5rem;
+        font-style: italic;
+      }
+      .testimonial-author {
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+      }
+      .testimonial-avatar {
+        width: 40px; height: 40px;
+        border-radius: 50%;
+        background: linear-gradient(135deg, #598c88, #4a7a76);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: #fff;
+        font-weight: 700;
+        font-size: 0.85rem;
+      }
+      .testimonial-name { font-weight: 600; font-size: 0.9rem; }
+      .testimonial-role { color: #64748b; font-size: 0.8rem; }
 
-    .badge {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.4rem;
-      background: rgba(89,140,136,0.12);
-      border: 1px solid rgba(89,140,136,0.3);
-      color: #598C88;
-      font-size: 0.75rem;
-      font-weight: 600;
-      padding: 0.3rem 0.85rem;
-      letter-spacing: 0.06em;
-      text-transform: uppercase;
-      margin-bottom: 2rem;
-    }
+      /* ===== CTA ===== */
+      .cta-section {
+        position: relative;
+        z-index: 10;
+        text-align: center;
+        padding: 6rem 2rem;
+        margin: 4rem 0;
+      }
+      .cta-section h2 {
+        font-size: 3rem;
+        font-weight: 800;
+        margin-bottom: 1rem;
+        background: linear-gradient(135deg, #fff, #598c88);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+      }
+      .cta-section p {
+        color: #64748b;
+        margin-bottom: 2rem;
+        font-size: 1.1rem;
+      }
 
-    h1 {
-      font-size: clamp(2.5rem, 5vw, 4rem);
-      font-weight: 700;
-      line-height: 1.1;
-      letter-spacing: -0.03em;
-      margin-bottom: 1.5rem;
-      background: linear-gradient(135deg, #fff 0%, #94a3b8 100%);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-    }
+      /* ===== FOOTER ===== */
+      footer {
+        position: relative;
+        z-index: 10;
+        border-top: 1px solid rgba(255,255,255,0.06);
+        padding: 4rem 2rem 2rem;
+      }
+      .footer-grid {
+        max-width: 1200px;
+        margin: 0 auto;
+        display: grid;
+        grid-template-columns: 2fr repeat(3, 1fr);
+        gap: 3rem;
+        margin-bottom: 3rem;
+      }
+      .footer-brand .logo { margin-bottom: 1rem; }
+      .footer-brand p { color: #64748b; font-size: 0.85rem; line-height: 1.7; }
+      .footer-col h4 {
+        color: #e2e8f0;
+        font-size: 0.85rem;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.08em;
+        margin-bottom: 1rem;
+      }
+      .footer-col ul { list-style: none; }
+      .footer-col ul li { margin-bottom: 0.5rem; }
+      .footer-col ul a {
+        color: #64748b;
+        text-decoration: none;
+        font-size: 0.85rem;
+        transition: color 0.2s;
+      }
+      .footer-col ul a:hover { color: #598c88; }
+      .footer-bottom {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding-top: 2rem;
+        border-top: 1px solid rgba(255,255,255,0.06);
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        color: #334155;
+        font-size: 0.8rem;
+      }
 
-    .subtitle {
-      font-size: 1.125rem;
-      color: #64748b;
-      max-width: 540px;
-      margin: 0 auto 2.5rem;
-      line-height: 1.7;
-    }
+      /* ===== SCROLL INDICATOR ===== */
+      .scroll-indicator {
+        position: fixed;
+        top: 0; left: 0;
+        height: 3px;
+        background: linear-gradient(90deg, #598c88, #7ab5b0);
+        z-index: 9999;
+        transition: width 0.1s;
+      }
 
-    .hero-actions {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 1rem;
-      flex-wrap: wrap;
-    }
+      /* ===== CURSOR FOLLOWER ===== */
+      .cursor-follower {
+        position: fixed;
+        width: 20px; height: 20px;
+        border: 2px solid rgba(89,140,136,0.5);
+        border-radius: 50%;
+        pointer-events: none;
+        z-index: 99999;
+        transition: transform 0.15s ease, width 0.3s, height 0.3s;
+      }
 
-    .btn-primary {
-      background: #598C88;
-      color: #fff;
-      border: none;
-      padding: 0.875rem 2rem;
-      font-size: 0.9rem;
-      font-weight: 600;
-      cursor: pointer;
-      transition: background 0.2s, transform 0.1s;
-    }
+      /* ===== CAROUSEL ===== */
+      .image-carousel {
+        position: relative;
+        z-index: 10;
+        max-width: 1200px;
+        margin: 4rem auto;
+        padding: 0 2rem;
+        overflow: hidden;
+      }
+      .carousel-track {
+        display: flex;
+        gap: 1.5rem;
+        animation: carousel-scroll 20s linear infinite;
+      }
+      @keyframes carousel-scroll {
+        0% { transform: translateX(0); }
+        100% { transform: translateX(-50%); }
+      }
+      .carousel-item {
+        min-width: 350px;
+        height: 200px;
+        background: rgba(255,255,255,0.03);
+        border: 1px solid rgba(255,255,255,0.06);
+        border-radius: 12px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 0.9rem;
+        color: #64748b;
+      }
 
-    .btn-primary:hover { background: #4a7a76; transform: translateY(-1px); }
+      /* ===== FLOATING ACTION BUTTON ===== */
+      .fab {
+        position: fixed;
+        bottom: 2rem;
+        right: 2rem;
+        width: 56px;
+        height: 56px;
+        background: linear-gradient(135deg, #598c88, #4a7a76);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: #fff;
+        font-size: 1.5rem;
+        cursor: pointer;
+        z-index: 1000;
+        box-shadow: 0 4px 20px rgba(89,140,136,0.4);
+        animation: fab-bounce 2s ease-in-out infinite;
+        border: none;
+      }
+      @keyframes fab-bounce {
+        0%, 100% { transform: translateY(0); }
+        50% { transform: translateY(-10px); }
+      }
+    </style>
+  </head>
+  <body>
 
-    .btn-outline {
-      background: transparent;
-      color: #94a3b8;
-      border: 1px solid rgba(255,255,255,0.1);
-      padding: 0.875rem 2rem;
-      font-size: 0.9rem;
-      font-weight: 500;
-      cursor: pointer;
-      transition: all 0.2s;
-    }
+    <div class="gradient-bg"></div>
+    <div class="glow-orb"></div>
+    <div class="glow-orb-2"></div>
+    <div class="glow-orb-3"></div>
+    <div class="bg-particles" id="particles"></div>
+    <div class="scroll-indicator" id="scrollIndicator"></div>
+    <div class="cursor-follower" id="cursorFollower"></div>
 
-    .btn-outline:hover { border-color: rgba(255,255,255,0.25); color: #e2e8f0; }
+    <nav>
+      <div class="logo">Mega<span>Stack</span></div>
+      <ul>
+        <li><a href="/">Home</a></li>
+        <li><a href="/about">About</a></li>
+        <li><a href="/blog">Blog</a></li>
+      </ul>
+      <button class="cta-btn" onclick="window.location.href='#'">Get Started</button>
+    </nav>
 
-    /* Features */
-    .features {
-      max-width: 1100px;
-      margin: 4rem auto;
-      padding: 0 2rem;
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-      gap: 1.5rem;
-    }
+    <section class="hero">
+      <div class="hero-badge">🚀 Maximum Power Cloud Infrastructure</div>
+      <h1>Move Fast,<br/>Break Nothing</h1>
+      <p class="subtitle">The cloud platform that does everything. Deploy faster, scale bigger, and never think about resource limits again. Unlimited compute, unlimited bandwidth, unlimited storage.</p>
+      <div class="hero-buttons">
+        <a href="#" class="btn-hero primary" onclick="handleCTAClick()">Start Free Trial</a>
+        <a href="#" class="btn-hero secondary">Watch Demo →</a>
+      </div>
+    </section>
 
-    .feature-card {
-      background: rgba(255,255,255,0.03);
-      border: 1px solid rgba(255,255,255,0.07);
-      padding: 2rem;
-      transition: border-color 0.2s, transform 0.2s;
-    }
-
-    .feature-card:hover {
-      border-color: rgba(89,140,136,0.3);
-      transform: translateY(-2px);
-    }
-
-    .feature-icon {
-      width: 2.5rem;
-      height: 2.5rem;
-      background: rgba(89,140,136,0.1);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      margin-bottom: 1.25rem;
-      font-size: 1.1rem;
-    }
-
-    .feature-card h3 {
-      font-size: 1rem;
-      font-weight: 600;
-      color: #e2e8f0;
-      margin-bottom: 0.5rem;
-    }
-
-    .feature-card p {
-      font-size: 0.875rem;
-      color: #64748b;
-      line-height: 1.6;
-    }
-
-    /* Pages for tracking */
-    .pages {
-      max-width: 1100px;
-      margin: 0 auto 6rem;
-      padding: 0 2rem;
-      text-align: center;
-    }
-
-    .pages h2 {
-      font-size: 1.75rem;
-      font-weight: 700;
-      letter-spacing: -0.02em;
-      margin-bottom: 1rem;
-    }
-
-    .pages p { color: #64748b; margin-bottom: 2.5rem; }
-
-    .page-links {
-      display: flex;
-      gap: 1rem;
-      justify-content: center;
-      flex-wrap: wrap;
-    }
-
-    .page-links a {
-      color: #598C88;
-      text-decoration: none;
-      font-size: 0.875rem;
-      font-weight: 500;
-      padding: 0.5rem 1rem;
-      border: 1px solid rgba(89,140,136,0.3);
-      transition: all 0.2s;
-    }
-
-    .page-links a:hover {
-      background: rgba(89,140,136,0.1);
-    }
-
-    footer {
-      border-top: 1px solid rgba(255,255,255,0.06);
-      padding: 2rem;
-      text-align: center;
-      color: #334155;
-      font-size: 0.8rem;
-    }
-  </style>
-</head>
-<body>
-
-  <nav>
-    <div class="logo">Root<span>&</span>Branch</div>
-    <ul>
-      <li><a href="#">Product</a></li>
-      <li><a href="#">Pricing</a></li>
-      <li><a href="#">Docs</a></li>
-      <li><a href="#">Blog</a></li>
-    </ul>
-    <button class="cta">Get Started</button>
-  </nav>
-
-  <section class="hero">
-    <div class="badge">🌱 Analytics Test Page</div>
-    <h1>Deploy Greener,<br/>Scale Smarter</h1>
-    <p class="subtitle">
-      A mock landing page to test the Cardamon Cloud analytics tracker.
-      Navigate around, click links, and watch the beacons fire.
-    </p>
-    <div class="hero-actions">
-      <button class="btn-primary" onclick="window.location.href='#features'">Explore Features</button>
-      <button class="btn-outline">View Docs</button>
+    <div class="stats-bar">
+      <div class="stat-item"><span class="stat-number" id="stat1">0</span><span class="stat-label">Active Deployments</span></div>
+      <div class="stat-item"><span class="stat-number" id="stat2">0</span><span class="stat-label">Countries</span></div>
+      <div class="stat-item"><span class="stat-number" id="stat3">0</span><span class="stat-label">APIs Connected</span></div>
+      <div class="stat-item"><span class="stat-number" id="stat4">0</span><span class="stat-label">Uptime %</span></div>
     </div>
-  </section>
 
-  <section class="features" id="features">
-    <div class="feature-card">
-      <div class="feature-icon">🚀</div>
-      <h3>Zero-Config Deployments</h3>
-      <p>Push your code and get a live URL in seconds. No YAML, no Kubernetes expertise required.</p>
-    </div>
-    <div class="feature-card">
-      <div class="feature-icon">🌍</div>
-      <h3>Carbon-Aware Routing</h3>
-      <p>Real-time carbon intensity data per region. Know the environmental cost of every request.</p>
-    </div>
-    <div class="feature-card">
-      <div class="feature-icon">📊</div>
-      <h3>Privacy Analytics</h3>
-      <p>Cookieless, GDPR-compliant page view tracking. No personal data collected, ever.</p>
-    </div>
-    <div class="feature-card">
-      <div class="feature-icon">🔒</div>
-      <h3>Automatic TLS</h3>
-      <p>Free SSL certificates provisioned automatically for every custom domain you add.</p>
-    </div>
-    <div class="feature-card">
-      <div class="feature-icon">⚡</div>
-      <h3>Instant Scaling</h3>
-      <p>Scale from 1 to 100 replicas with a single slider. Pay only for what you use.</p>
-    </div>
-    <div class="feature-card">
-      <div class="feature-icon">🗄️</div>
-      <h3>Managed Databases</h3>
-      <p>PostgreSQL, MySQL, and Redis — provisioned in one click with automatic backups.</p>
-    </div>
-  </section>
+    <section class="features">
+      <h2 class="section-title">Everything You Need</h2>
+      <p class="section-sub">Powerful features built for the modern developer. Ship fast, iterate faster.</p>
+      <div class="features-grid">
+        <div class="feature-card">
+          <div class="feature-icon"><i class="fas fa-rocket"></i></div>
+          <h3>Zero-Config Deploys</h3>
+          <p>Push your code and get a live URL in seconds. No YAML, no Kubernetes expertise required.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon"><i class="fas fa-globe"></i></div>
+          <h3>Global Edge Network</h3>
+          <p>300+ edge locations worldwide. Replicate your data everywhere for maximum availability and speed.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon"><i class="fas fa-chart-bar"></i></div>
+          <h3>Real-time Analytics</h3>
+          <p>Track every click, scroll, and mouse movement. Rich dashboards with 50+ widgets and real-time data streams.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon"><i class="fas fa-lock"></i></div>
+          <h3>Automatic TLS</h3>
+          <p>Free SSL certificates provisioned automatically for every custom domain.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon"><i class="fas fa-bolt"></i></div>
+          <h3>Instant Scaling</h3>
+          <p>Scale from 1 to 100 replicas with a single slider. Pay only for what you use.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon"><i class="fas fa-database"></i></div>
+          <h3>Managed Databases</h3>
+          <p>PostgreSQL, MySQL, and Redis — provisioned in one click with automatic backups.</p>
+        </div>
+      </div>
+    </section>
 
-  <section class="pages">
-    <h2>Navigate to trigger more beacons</h2>
-    <p>Click links below to simulate multi-page visits and test duration tracking.</p>
-    <div class="page-links">
-      <a href="#pricing">Pricing</a>
-      <a href="#docs">Documentation</a>
-      <a href="#blog">Blog</a>
-      <a href="#contact">Contact</a>
-      <a href="#about">About</a>
+    <div class="image-carousel">
+      <div class="carousel-track" id="carouselTrack">
+        <div class="carousel-item">📊 Real-time Dashboard</div>
+        <div class="carousel-item">🌍 Global CDN Map</div>
+        <div class="carousel-item">📈 Performance Metrics</div>
+        <div class="carousel-item">🔒 Security Overview</div>
+        <div class="carousel-item">🗄 Database Console</div>
+        <div class="carousel-item">📊 Real-time Dashboard</div>
+        <div class="carousel-item">🌍 Global CDN Map</div>
+        <div class="carousel-item">📈 Performance Metrics</div>
+        <div class="carousel-item">🔒 Security Overview</div>
+        <div class="carousel-item">🗄 Database Console</div>
+      </div>
     </div>
-  </section>
 
-  <footer>
-    &copy; 2026 Root &amp; Branch · Analytics test page · Tracker beaconing to localhost:8080
-  </footer>
+    <section class="testimonials">
+      <h2 class="section-title">Loved by Developers</h2>
+      <div class="testimonial-grid">
+        <div class="testimonial-card">
+          <div class="testimonial-stars">★★★★★</div>
+          <p class="testimonial-text">"MegaStack handles all our infrastructure so we never have to think about servers. The dashboard has so many features we haven't even explored half of them yet."</p>
+          <div class="testimonial-author">
+            <div class="testimonial-avatar">SR</div>
+            <div>
+              <div class="testimonial-name">Sarah Rodriguez</div>
+              <div class="testimonial-role">CTO, ScaleForce</div>
+            </div>
+          </div>
+        </div>
+        <div class="testimonial-card">
+          <div class="testimonial-stars">★★★★★</div>
+          <p class="testimonial-text">"The zero-config deployment is the real deal. Pushed our Next.js app and it was live in under 30 seconds. Incredible."</p>
+          <div class="testimonial-author">
+            <div class="testimonial-avatar">MK</div>
+            <div>
+              <div class="testimonial-name">Marcus Kim</div>
+              <div class="testimonial-role">Lead Engineer, Flowtech</div>
+            </div>
+          </div>
+        </div>
+        <div class="testimonial-card">
+          <div class="testimonial-stars">★★★★★</div>
+          <p class="testimonial-text">"The auto-scaling is insane. We went from 10 to 10,000 containers in minutes during our product launch. Never going back."</p>
+          <div class="testimonial-author">
+            <div class="testimonial-avatar">AL</div>
+            <div>
+              <div class="testimonial-name">Aisha Lowe</div>
+              <div class="testimonial-role">VP Eng, DataMax Inc</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
 
-</body>
+    <section class="cta-section">
+      <h2>Ready to Ship Faster?</h2>
+      <p>Join 12,000+ developers building on the most powerful cloud platform.</p>
+      <a href="#" class="btn-hero primary">Start Your Free Trial</a>
+    </section>
+
+    <footer>
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <div class="logo">Mega<span>Stack</span></div>
+          <p>The all-in-one cloud platform for modern developers. Deploy, scale, and ship without limits.</p>
+        </div>
+        <div class="footer-col">
+          <h4>Product</h4>
+          <ul>
+            <li><a href="#">Deployments</a></li>
+            <li><a href="#">Analytics</a></li>
+            <li><a href="#">Databases</a></li>
+            <li><a href="#">Domains</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Company</h4>
+          <ul>
+            <li><a href="/about">About</a></li>
+            <li><a href="/blog">Blog</a></li>
+            <li><a href="#">Careers</a></li>
+            <li><a href="#">Contact</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Legal</h4>
+          <ul>
+            <li><a href="#">Privacy</a></li>
+            <li><a href="#">Terms</a></li>
+            <li><a href="#">DPA</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <span>&copy; 2026 MegaStack. All rights reserved.</span>
+        <span>Built with 🚀 for maximum performance</span>
+      </div>
+    </footer>
+
+    <button class="fab" id="fabBtn">↑</button>
+
+    <!-- INLINE SVG SPRITES (unnecessarily large, duplicated) -->
+    <svg style="display:none">
+      <symbol id="icon-cloud" viewBox="0 0 24 24"><path d="M19.35 10.04C18.67 6.59 15.64 4 12 4 9.11 4 6.6 5.64 5.35 8.04 2.34 8.36 0 10.91 0 14c0 3.31 2.69 6 6 6h13c2.76 0 5-2.24 5-5 0-2.64-2.05-4.78-4.65-4.96z"/></symbol>
+      <symbol id="icon-server" viewBox="0 0 24 24"><path d="M2 2h20v6H2zm0 8h20v6H2zm0 8h20v4H2z"/></symbol>
+      <symbol id="icon-shield" viewBox="0 0 24 24"><path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4z"/></symbol>
+      <symbol id="icon-chart" viewBox="0 0 24 24"><path d="M3 13h2v8H3zm6-6h2v14H9zm6-4h2v18h-2zm6 8h2v10h-2z"/></symbol>
+      <symbol id="icon-globe" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"/></symbol>
+    </svg>
+
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNk+M9QDwADhgGAWjR9awAAAABJRU5ErkJggg==" alt="" style="display:none" id="trackingPixel1" />
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNk+M9QDwADhgGAWjR9awAAAABJRU5ErkJggg==" alt="" style="display:none" id="trackingPixel2" />
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNk+M9QDwADhgGAWjR9awAAAABJRU5ErkJggg==" alt="" style="display:none" id="trackingPixel3" />
+
+    <script>
+      // ===== PARTICLE GENERATOR (creates 60 DOM elements, all animating) =====
+      (function generateParticles() {
+        var container = document.getElementById('particles');
+        for (var i = 0; i < 60; i++) {
+          var p = document.createElement('div');
+          p.className = 'particle';
+          var size = Math.random() * 6 + 2;
+          p.style.width = size + 'px';
+          p.style.height = size + 'px';
+          p.style.left = Math.random() * 100 + '%';
+          p.style.background = 'rgba(89,140,136,' + (Math.random() * 0.3 + 0.1) + ')';
+          p.style.animationDuration = (Math.random() * 15 + 10) + 's';
+          p.style.animationDelay = (Math.random() * 10) + 's';
+          container.appendChild(p);
+        }
+      })();
+
+      // ===== CURSOR FOLLOWER (mousemove on EVERY pixel) =====
+      document.addEventListener('mousemove', function(e) {
+        var follower = document.getElementById('cursorFollower');
+        follower.style.left = e.clientX - 10 + 'px';
+        follower.style.top = e.clientY - 10 + 'px';
+
+        // Unnecessary: recalculate distance from center on every mouse move
+        var centerX = window.innerWidth / 2;
+        var centerY = window.innerHeight / 2;
+        var distance = Math.sqrt(Math.pow(e.clientX - centerX, 2) + Math.pow(e.clientY - centerY, 2));
+        var maxDistance = Math.sqrt(Math.pow(centerX, 2) + Math.pow(centerY, 2));
+        var ratio = distance / maxDistance;
+        follower.style.borderColor = 'rgba(89,140,136,' + (0.5 - ratio * 0.3) + ')';
+      });
+
+      // ===== SCROLL INDICATOR (reads DOM on every scroll) =====
+      window.addEventListener('scroll', function() {
+        var indicator = document.getElementById('scrollIndicator');
+        var scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
+        var scrollHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+        var progress = (scrollTop / scrollHeight) * 100;
+        indicator.style.width = progress + '%';
+      });
+
+      // ===== COUNTER ANIMATION (runs in tight setInterval) =====
+      function animateCounters() {
+        var targets = [
+          { id: 'stat1', target: 12847, suffix: '' },
+          { id: 'stat2', target: 42, suffix: '' },
+          { id: 'stat3', target: 1284, suffix: '' },
+          { id: 'stat4', target: 99.99, suffix: '%' }
+        ];
+
+        targets.forEach(function(item) {
+          var el = document.getElementById(item.id);
+          var current = 0;
+          var increment = item.target / 200;
+          var interval = setInterval(function() {
+            current += increment;
+            if (current >= item.target) {
+              current = item.target;
+              clearInterval(interval);
+            }
+            if (item.suffix === '%') {
+              el.textContent = current.toFixed(2) + item.suffix;
+            } else {
+              el.textContent = Math.floor(current).toLocaleString();
+            }
+          }, 10);
+        });
+      }
+      animateCounters();
+
+      // ===== UNNECESSARY: Recalculate all card positions every 100ms =====
+      setInterval(function() {
+        var cards = document.querySelectorAll('.feature-card');
+        var positions = [];
+        for (var i = 0; i < cards.length; i++) {
+          var rect = cards[i].getBoundingClientRect();
+          positions.push({
+            top: rect.top,
+            left: rect.left,
+            width: rect.width,
+            height: rect.height,
+            visible: rect.top < window.innerHeight && rect.bottom > 0
+          });
+        }
+        // Store in window for "analytics" but never actually used
+        window.__cardPositions = JSON.stringify(positions);
+      }, 100);
+
+      // ===== UNNECESSARY: Poll server time every 5 seconds =====
+      setInterval(function() {
+        fetch('https://worldtimeapi.org/api/timezone/Etc/UTC')
+          .then(function(r) { return r.json(); })
+          .then(function(data) {
+            window.__serverTime = data.datetime;
+          })
+          .catch(function() {});
+      }, 5000);
+
+      // ===== UNNECESSARY: Recalculate all styles every 2 seconds =====
+      setInterval(function() {
+        var allElements = document.querySelectorAll('*');
+        var totalComputedStyles = 0;
+        for (var i = 0; i < allElements.length; i++) {
+          var style = window.getComputedStyle(allElements[i]);
+          totalComputedStyles += parseInt(style.width) || 0;
+          totalComputedStyles += parseInt(style.height) || 0;
+        }
+        window.__layoutMetric = totalComputedStyles;
+      }, 2000);
+
+      // ===== FAB scroll-to-top =====
+      document.getElementById('fabBtn').addEventListener('click', function() {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      });
+
+      // ===== HANDLE CTA (does nothing useful) =====
+      function handleCTAClick() {
+        // Unnecessary: serialize entire DOM to string
+        var html = document.documentElement.outerHTML;
+        var length = html.length;
+        console.log('Page size: ' + length + ' bytes');
+
+        // Unnecessary: create a temporary canvas to generate a "session ID"
+        var canvas = document.createElement('canvas');
+        var ctx = canvas.getContext('2d');
+        ctx.fillText('session', 10, 10);
+        var sessionId = canvas.toDataURL().slice(-20);
+        console.log('Session: ' + sessionId);
+      }
+
+      // ===== UNNECESSARY: Log all click events with full event details =====
+      document.addEventListener('click', function(e) {
+        var data = {
+          tag: e.target.tagName,
+          id: e.target.id,
+          classes: e.target.className,
+          x: e.clientX,
+          y: e.clientY,
+          timestamp: new Date().toISOString(),
+          path: e.composedPath().map(function(el) { return el.tagName || 'WINDOW'; }).join(' > '),
+          viewport: { w: window.innerWidth, h: window.innerHeight },
+          scroll: { x: window.scrollX, y: window.scrollY }
+        };
+        console.log('CLICK_EVENT:', JSON.stringify(data));
+      });
+
+      // ===== DUPLICATE: Another scroll listener doing similar work =====
+      window.addEventListener('scroll', function() {
+        var sections = document.querySelectorAll('section');
+        sections.forEach(function(section) {
+          var rect = section.getBoundingClientRect();
+          if (rect.top < window.innerHeight * 0.8) {
+            section.style.opacity = '1';
+            section.style.transform = 'translateY(0)';
+          }
+        });
+      });
+
+      // ===== LODASH USAGE: using entire library for one operation =====
+      var pageData = {
+        title: document.title,
+        url: window.location.href,
+        timestamp: moment().format(),
+        userAgent: navigator.userAgent
+      };
+      var clonedData = _.cloneDeep(pageData);
+      console.log('Page loaded:', clonedData);
+    </script>
+  </body>
 </html>

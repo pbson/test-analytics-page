@@ -1,0 +1,729 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>About - MegaStack</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.21/lodash.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.30.1/moment.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <style>
+      @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap');
+
+      * { box-sizing: border-box; margin: 0; padding: 0; }
+
+      body {
+        font-family: 'Inter', sans-serif;
+        background: #0a0a0f;
+        color: #e2e8f0;
+        overflow-x: hidden;
+      }
+
+      /* ===== ANIMATED BACKGROUND ===== */
+      .animated-bg {
+        position: fixed;
+        top: 0; left: 0;
+        width: 100%; height: 100%;
+        z-index: 0;
+      }
+      .animated-bg .layer {
+        position: absolute;
+        width: 100%; height: 100%;
+      }
+      .animated-bg .layer-1 {
+        background: radial-gradient(ellipse at 20% 50%, rgba(89,140,136,0.08) 0%, transparent 60%);
+        animation: layer-drift-1 12s ease-in-out infinite;
+      }
+      .animated-bg .layer-2 {
+        background: radial-gradient(ellipse at 80% 30%, rgba(140,89,100,0.06) 0%, transparent 60%);
+        animation: layer-drift-2 15s ease-in-out infinite;
+      }
+      .animated-bg .layer-3 {
+        background: radial-gradient(ellipse at 50% 80%, rgba(89,100,200,0.06) 0%, transparent 60%);
+        animation: layer-drift-3 18s ease-in-out infinite;
+      }
+      @keyframes layer-drift-1 {
+        0%, 100% { transform: translate(0, 0) scale(1); }
+        50% { transform: translate(5%, -5%) scale(1.1); }
+      }
+      @keyframes layer-drift-2 {
+        0%, 100% { transform: translate(0, 0) scale(1); }
+        50% { transform: translate(-5%, 5%) scale(1.15); }
+      }
+      @keyframes layer-drift-3 {
+        0%, 100% { transform: translate(0, 0) scale(1); }
+        50% { transform: translate(3%, -3%) scale(1.08); }
+      }
+
+      /* ===== MATRIX RAIN CANVAS ===== */
+      #matrixCanvas {
+        position: fixed;
+        top: 0; left: 0;
+        width: 100%; height: 100%;
+        z-index: 1;
+        opacity: 0.03;
+        pointer-events: none;
+      }
+
+      /* ===== NAV ===== */
+      nav {
+        position: sticky;
+        top: 0;
+        z-index: 1000;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 1.25rem 2.5rem;
+        background: rgba(10,10,15,0.7);
+        backdrop-filter: blur(20px);
+        -webkit-backdrop-filter: blur(20px);
+        border-bottom: 1px solid rgba(255,255,255,0.06);
+      }
+      .logo { font-size: 1.2rem; font-weight: 800; color: #fff; }
+      .logo span { color: #598c88; }
+      nav ul { display: flex; gap: 2rem; list-style: none; }
+      nav ul a {
+        color: #94a3b8;
+        text-decoration: none;
+        font-size: 0.875rem;
+        transition: color 0.3s ease;
+      }
+      nav ul a:hover { color: #fff; }
+      nav .cta-btn {
+        background: linear-gradient(135deg, #598c88, #4a7a76);
+        color: #fff;
+        border: none;
+        padding: 0.6rem 1.5rem;
+        font-size: 0.875rem;
+        font-weight: 600;
+        cursor: pointer;
+        border-radius: 6px;
+        box-shadow: 0 4px 15px rgba(89,140,136,0.3);
+      }
+
+      /* ===== PAGE HEADER ===== */
+      .page-header {
+        position: relative;
+        z-index: 10;
+        text-align: center;
+        padding: 7rem 2rem 4rem;
+      }
+      .page-header h1 {
+        font-size: 4rem;
+        font-weight: 900;
+        letter-spacing: -0.04em;
+        margin-bottom: 1rem;
+        background: linear-gradient(135deg, #fff, #94a3b8);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        animation: text-glow 3s ease-in-out infinite;
+      }
+      @keyframes text-glow {
+        0%, 100% { filter: drop-shadow(0 0 0px transparent); }
+        50% { filter: drop-shadow(0 0 20px rgba(89,140,136,0.3)); }
+      }
+      .page-header p {
+        font-size: 1.2rem;
+        color: #64748b;
+        max-width: 600px;
+        margin: 0 auto;
+        line-height: 1.8;
+      }
+
+      /* ===== MISSION SECTION ===== */
+      .mission {
+        position: relative;
+        z-index: 10;
+        max-width: 1200px;
+        margin: 4rem auto;
+        padding: 0 2rem;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 4rem;
+        align-items: center;
+      }
+      .mission-text h2 {
+        font-size: 2.5rem;
+        font-weight: 800;
+        margin-bottom: 1.5rem;
+        letter-spacing: -0.03em;
+      }
+      .mission-text p {
+        color: #64748b;
+        font-size: 1rem;
+        line-height: 1.8;
+        margin-bottom: 1rem;
+      }
+      .mission-visual {
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+      }
+      .mission-stat-card {
+        background: rgba(255,255,255,0.03);
+        border: 1px solid rgba(255,255,255,0.06);
+        border-radius: 12px;
+        padding: 1.5rem 2rem;
+        display: flex;
+        align-items: center;
+        gap: 1.5rem;
+        transition: all 0.4s ease;
+        animation: card-float 4s ease-in-out infinite;
+      }
+      .mission-stat-card:nth-child(2) { animation-delay: 0.5s; }
+      .mission-stat-card:nth-child(3) { animation-delay: 1s; }
+      @keyframes card-float {
+        0%, 100% { transform: translateY(0); }
+        50% { transform: translateY(-5px); }
+      }
+      .mission-stat-card:hover {
+        border-color: rgba(89,140,136,0.3);
+        transform: translateY(-5px) scale(1.02);
+        box-shadow: 0 15px 30px rgba(0,0,0,0.3);
+      }
+      .stat-icon {
+        width: 50px; height: 50px;
+        background: rgba(89,140,136,0.1);
+        border-radius: 12px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.5rem;
+        flex-shrink: 0;
+      }
+      .stat-content .stat-number {
+        font-size: 1.8rem;
+        font-weight: 800;
+        color: #598c88;
+      }
+      .stat-content .stat-label {
+        color: #64748b;
+        font-size: 0.85rem;
+      }
+
+      /* ===== TEAM ===== */
+      .team {
+        position: relative;
+        z-index: 10;
+        max-width: 1200px;
+        margin: 6rem auto;
+        padding: 0 2rem;
+      }
+      .team .section-title {
+        text-align: center;
+        font-size: 2.5rem;
+        font-weight: 800;
+        margin-bottom: 1rem;
+      }
+      .team .section-sub {
+        text-align: center;
+        color: #64748b;
+        margin-bottom: 4rem;
+        font-size: 1.1rem;
+      }
+      .team-grid {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 1.5rem;
+      }
+      .team-card {
+        background: rgba(255,255,255,0.03);
+        border: 1px solid rgba(255,255,255,0.06);
+        border-radius: 12px;
+        padding: 2rem;
+        text-align: center;
+        transition: all 0.4s ease;
+      }
+      .team-card:hover {
+        border-color: rgba(89,140,136,0.3);
+        transform: translateY(-8px);
+        box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+      }
+      .team-avatar {
+        width: 80px; height: 80px;
+        border-radius: 50%;
+        margin: 0 auto 1.25rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.8rem;
+        font-weight: 800;
+        color: #fff;
+        animation: avatar-rotate 8s linear infinite;
+      }
+      @keyframes avatar-rotate {
+        0% { box-shadow: 0 0 0 3px rgba(89,140,136,0.3); }
+        50% { box-shadow: 0 0 0 6px rgba(89,140,136,0.1); }
+        100% { box-shadow: 0 0 0 3px rgba(89,140,136,0.3); }
+      }
+      .team-avatar.a1 { background: linear-gradient(135deg, #598c88, #3d6b67); }
+      .team-avatar.a2 { background: linear-gradient(135deg, #8c5989, #6b3d68); }
+      .team-avatar.a3 { background: linear-gradient(135deg, #89598c, #68396b); }
+      .team-avatar.a4 { background: linear-gradient(135deg, #5964a0, #3d4680); }
+      .team-card h3 {
+        font-size: 1rem;
+        font-weight: 700;
+        margin-bottom: 0.25rem;
+      }
+      .team-card .role {
+        color: #598c88;
+        font-size: 0.8rem;
+        font-weight: 600;
+        margin-bottom: 0.75rem;
+      }
+      .team-card .bio {
+        color: #64748b;
+        font-size: 0.8rem;
+        line-height: 1.6;
+      }
+
+      /* ===== TIMELINE ===== */
+      .timeline {
+        position: relative;
+        z-index: 10;
+        max-width: 800px;
+        margin: 6rem auto;
+        padding: 0 2rem;
+      }
+      .timeline .section-title {
+        text-align: center;
+        font-size: 2.5rem;
+        font-weight: 800;
+        margin-bottom: 4rem;
+      }
+      .timeline-line {
+        position: absolute;
+        left: 50%;
+        top: 140px;
+        bottom: 0;
+        width: 2px;
+        background: linear-gradient(to bottom, rgba(89,140,136,0.3), transparent);
+      }
+      .timeline-item {
+        display: flex;
+        margin-bottom: 3rem;
+        position: relative;
+      }
+      .timeline-item:nth-child(odd) { flex-direction: row; }
+      .timeline-item:nth-child(even) { flex-direction: row-reverse; }
+      .timeline-content {
+        width: 45%;
+        background: rgba(255,255,255,0.03);
+        border: 1px solid rgba(255,255,255,0.06);
+        border-radius: 12px;
+        padding: 1.5rem;
+        transition: all 0.3s ease;
+      }
+      .timeline-content:hover {
+        border-color: rgba(89,140,136,0.3);
+        transform: scale(1.02);
+      }
+      .timeline-dot {
+        position: absolute;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 12px; height: 12px;
+        background: #598c88;
+        border-radius: 50%;
+        border: 3px solid #0a0a0f;
+        z-index: 2;
+        animation: dot-pulse 2s ease-in-out infinite;
+      }
+      @keyframes dot-pulse {
+        0%, 100% { box-shadow: 0 0 0 0 rgba(89,140,136,0.4); }
+        50% { box-shadow: 0 0 0 8px rgba(89,140,136,0); }
+      }
+      .timeline-year {
+        color: #598c88;
+        font-weight: 700;
+        font-size: 0.85rem;
+        margin-bottom: 0.5rem;
+      }
+      .timeline-content h3 {
+        font-size: 1rem;
+        font-weight: 700;
+        margin-bottom: 0.5rem;
+      }
+      .timeline-content p {
+        color: #64748b;
+        font-size: 0.85rem;
+        line-height: 1.6;
+      }
+
+      /* ===== VALUES ===== */
+      .values {
+        position: relative;
+        z-index: 10;
+        max-width: 1200px;
+        margin: 6rem auto;
+        padding: 0 2rem;
+      }
+      .values .section-title {
+        text-align: center;
+        font-size: 2.5rem;
+        font-weight: 800;
+        margin-bottom: 4rem;
+      }
+      .values-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 1.5rem;
+      }
+      .value-card {
+        background: rgba(255,255,255,0.02);
+        border: 1px solid rgba(255,255,255,0.06);
+        border-radius: 16px;
+        padding: 2.5rem 2rem;
+        text-align: center;
+        transition: all 0.4s cubic-bezier(0.4,0,0.2,1);
+        position: relative;
+        overflow: hidden;
+      }
+      .value-card::after {
+        content: '';
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(135deg, rgba(89,140,136,0.05), transparent);
+        opacity: 0;
+        transition: opacity 0.4s;
+      }
+      .value-card:hover {
+        transform: translateY(-10px);
+        border-color: rgba(89,140,136,0.3);
+        box-shadow: 0 25px 50px rgba(0,0,0,0.3);
+      }
+      .value-card:hover::after { opacity: 1; }
+      .value-icon {
+        font-size: 2.5rem;
+        margin-bottom: 1.5rem;
+        display: block;
+        animation: icon-bounce 3s ease-in-out infinite;
+      }
+      @keyframes icon-bounce {
+        0%, 100% { transform: translateY(0); }
+        50% { transform: translateY(-8px); }
+      }
+      .value-card h3 {
+        font-size: 1.1rem;
+        font-weight: 700;
+        margin-bottom: 0.75rem;
+      }
+      .value-card p {
+        color: #64748b;
+        font-size: 0.85rem;
+        line-height: 1.7;
+      }
+
+      /* ===== FOOTER ===== */
+      footer {
+        position: relative;
+        z-index: 10;
+        border-top: 1px solid rgba(255,255,255,0.06);
+        padding: 3rem 2rem;
+        text-align: center;
+        color: #334155;
+        font-size: 0.8rem;
+      }
+    </style>
+  </head>
+  <body>
+
+    <div class="animated-bg">
+      <div class="layer layer-1"></div>
+      <div class="layer layer-2"></div>
+      <div class="layer layer-3"></div>
+    </div>
+    <canvas id="matrixCanvas"></canvas>
+
+    <nav>
+      <div class="logo">Mega<span>Stack</span></div>
+      <ul>
+        <li><a href="/">Home</a></li>
+        <li><a href="/about">About</a></li>
+        <li><a href="/blog">Blog</a></li>
+      </ul>
+      <button class="cta-btn">Get Started</button>
+    </nav>
+
+    <section class="page-header">
+      <h1>About MegaStack</h1>
+      <p>We're on a mission to make cloud computing effortless. Every feature, every integration, every API — built for maximum developer productivity.</p>
+    </section>
+
+    <section class="mission">
+      <div class="mission-text">
+        <h2>Our Mission</h2>
+        <p>Founded in 2023, MegaStack was born from a simple idea: developers should never have to think about infrastructure. We believe that every deployment should be instant, every feature should work out of the box, and every developer should ship faster.</p>
+        <p>Our platform gives developers all the tools they need in one place — hosting, databases, analytics, CI/CD, monitoring, and more. No more stitching together 15 different services.</p>
+        <p>We operate data centers on 3 continents with redundant infrastructure, ensuring maximum uptime and the lowest latency for every workload, no matter how big.</p>
+      </div>
+      <div class="mission-visual">
+        <div class="mission-stat-card">
+          <div class="stat-icon">🌍</div>
+          <div class="stat-content">
+            <div class="stat-number" id="aboutStat1">0</div>
+            <div class="stat-label">Requests/Second</div>
+          </div>
+        </div>
+        <div class="mission-stat-card">
+          <div class="stat-icon">⚡</div>
+          <div class="stat-content">
+            <div class="stat-number" id="aboutStat2">0</div>
+            <div class="stat-label">Total Deployments</div>
+          </div>
+        </div>
+        <div class="mission-stat-card">
+          <div class="stat-icon">🏢</div>
+          <div class="stat-content">
+            <div class="stat-number" id="aboutStat3">0</div>
+            <div class="stat-label">Global Data Centers</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="team">
+      <h2 class="section-title">Our Team</h2>
+      <p class="section-sub">Passionate engineers building the future of cloud infrastructure.</p>
+      <div class="team-grid">
+        <div class="team-card">
+          <div class="team-avatar a1">EL</div>
+          <h3>Elena Voss</h3>
+          <div class="role">CEO & Co-Founder</div>
+          <p class="bio">Former VP Eng at CloudFlare. 15 years building distributed systems. Passionate about developer experience.</p>
+        </div>
+        <div class="team-card">
+          <div class="team-avatar a2">MR</div>
+          <h3>Marcus Reid</h3>
+          <div class="role">CTO & Co-Founder</div>
+          <p class="bio">PhD in Distributed Systems from MIT. Led the Azure Functions team at Microsoft.</p>
+        </div>
+        <div class="team-card">
+          <div class="team-avatar a3">SK</div>
+          <h3>Simone Kowalski</h3>
+          <div class="role">VP Engineering</div>
+          <p class="bio">Ex-Google SRE. Built autoscaling systems serving 1B+ requests/day. Kubernetes contributor.</p>
+        </div>
+        <div class="team-card">
+          <div class="team-avatar a4">JP</div>
+          <h3>James Park</h3>
+          <div class="role">Head of Platform</div>
+          <p class="bio">Former platform lead at AWS. Built enterprise solutions serving Fortune 500 companies.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="timeline">
+      <h2 class="section-title">Our Journey</h2>
+      <div class="timeline-line"></div>
+      <div class="timeline-item">
+        <div class="timeline-content">
+          <div class="timeline-year">2023</div>
+          <h3>Founded</h3>
+          <p>MegaStack launched with a seed round of $2M and a vision to make cloud computing effortless for every developer.</p>
+        </div>
+        <div class="timeline-dot"></div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-content">
+          <div class="timeline-year">2024</div>
+          <h3>1,000 Customers</h3>
+          <p>Reached our first milestone of 1,000 active customers deploying on our globally distributed infrastructure.</p>
+        </div>
+        <div class="timeline-dot"></div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-content">
+          <div class="timeline-year">2025</div>
+          <h3>Global Edge Network</h3>
+          <p>Launched our edge network with 300+ points of presence, automatically directing traffic to the fastest region.</p>
+        </div>
+        <div class="timeline-dot"></div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-content">
+          <div class="timeline-year">2026</div>
+          <h3>Series A</h3>
+          <p>Raised $15M Series A to expand globally. Now serving 12,000+ developers across 42 countries with maximum compute power.</p>
+        </div>
+        <div class="timeline-dot"></div>
+      </div>
+    </section>
+
+    <section class="values">
+      <h2 class="section-title">Our Values</h2>
+      <div class="values-grid">
+        <div class="value-card">
+          <span class="value-icon">⚡</span>
+          <h3>Speed First</h3>
+          <p>Every decision we make is evaluated through a performance lens. Faster deploys, faster responses, faster iteration.</p>
+        </div>
+        <div class="value-card">
+          <span class="value-icon">🔬</span>
+          <h3>Evidence-Driven</h3>
+          <p>No claims without data. We publish our carbon reports, open our methodology, and invite scrutiny.</p>
+        </div>
+        <div class="value-card">
+          <span class="value-icon">🤝</span>
+          <h3>Developer First</h3>
+          <p>We build for developers. Our CLI, SDKs, and APIs are designed to get you from zero to production in minutes, not days.</p>
+        </div>
+      </div>
+    </section>
+
+    <footer>
+      &copy; 2026 MegaStack. All rights reserved. · Built with 🚀 for maximum scale
+    </footer>
+
+    <!-- Tracking pixels -->
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNk+M9QDwADhgGAWjR9awAAAABJRU5ErkJggg==" alt="" style="display:none" />
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNk+M9QDwADhgGAWjR9awAAAABJRU5ErkJggg==" alt="" style="display:none" />
+
+    <script>
+      // ===== MATRIX RAIN EFFECT (high CPU canvas animation) =====
+      (function() {
+        var canvas = document.getElementById('matrixCanvas');
+        var ctx = canvas.getContext('2d');
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+
+        var chars = '01アイウエオカキクケコサシスセソタチツテトナニヌネノハヒフヘホマミムメモヤユヨラリルレロワヲン';
+        var fontSize = 14;
+        var columns = Math.floor(canvas.width / fontSize);
+        var drops = [];
+        for (var i = 0; i < columns; i++) drops[i] = Math.random() * canvas.height / fontSize;
+
+        function draw() {
+          ctx.fillStyle = 'rgba(10, 10, 15, 0.05)';
+          ctx.fillRect(0, 0, canvas.width, canvas.height);
+          ctx.fillStyle = 'rgba(89, 140, 136, 0.4)';
+          ctx.font = fontSize + 'px monospace';
+          for (var i = 0; i < drops.length; i++) {
+            var text = chars[Math.floor(Math.random() * chars.length)];
+            ctx.fillText(text, i * fontSize, drops[i] * fontSize);
+            if (drops[i] * fontSize > canvas.height && Math.random() > 0.975) {
+              drops[i] = 0;
+            }
+            drops[i]++;
+          }
+        }
+
+        // Running at 30fps — no pause when tab not visible
+        setInterval(draw, 33);
+
+        // Unnecessary resize listener that recreates everything
+        window.addEventListener('resize', function() {
+          canvas.width = window.innerWidth;
+          canvas.height = window.innerHeight;
+          var newColumns = Math.floor(canvas.width / fontSize);
+          drops = [];
+          for (var i = 0; i < newColumns; i++) drops[i] = Math.random() * canvas.height / fontSize;
+        });
+      })();
+
+      // ===== COUNTER ANIMATION (duplicate of homepage logic) =====
+      function animateAboutCounters() {
+        var targets = [
+          { id: 'aboutStat1', target: 2847 },
+          { id: 'aboutStat2', target: 156420 },
+          { id: 'aboutStat3', target: 18 }
+        ];
+        targets.forEach(function(item) {
+          var el = document.getElementById(item.id);
+          var current = 0;
+          var increment = item.target / 300;
+          var interval = setInterval(function() {
+            current += increment;
+            if (current >= item.target) {
+              current = item.target;
+              clearInterval(interval);
+            }
+            el.textContent = Math.floor(current).toLocaleString();
+          }, 10);
+        });
+      }
+      animateAboutCounters();
+
+      // ===== UNNECESSARY: Parallax effect on scroll =====
+      window.addEventListener('scroll', function() {
+        var scrollY = window.scrollY;
+        var layers = document.querySelectorAll('.animated-bg .layer');
+        layers[0].style.transform = 'translateY(' + (scrollY * 0.05) + 'px)';
+        layers[1].style.transform = 'translateY(' + (scrollY * 0.1) + 'px)';
+        layers[2].style.transform = 'translateY(' + (scrollY * 0.15) + 'px)';
+
+        // Unnecessary: recalculate all card bounding rects
+        var allCards = document.querySelectorAll('.team-card, .value-card, .mission-stat-card, .timeline-content');
+        allCards.forEach(function(card) {
+          var rect = card.getBoundingClientRect();
+          if (rect.top < window.innerHeight) {
+            card.style.opacity = '1';
+          }
+        });
+      });
+
+      // ===== UNNECESSARY: Fetch GitHub stars count every 10 seconds =====
+      setInterval(function() {
+        fetch('https://api.github.com/repos/vercel/next.js')
+          .then(function(r) { return r.json(); })
+          .then(function(data) {
+            window.__githubStars = data.stargazers_count;
+          })
+          .catch(function() {});
+      }, 10000);
+
+      // ===== UNNECESSARY: Detect device capabilities on loop =====
+      setInterval(function() {
+        var deviceInfo = {
+          screen: {
+            width: screen.width,
+            height: screen.height,
+            colorDepth: screen.colorDepth,
+            pixelRatio: window.devicePixelRatio
+          },
+          memory: navigator.deviceMemory || 'unknown',
+          cores: navigator.hardwareConcurrency || 'unknown',
+          connection: navigator.connection ? {
+            type: navigator.connection.effectiveType,
+            downlink: navigator.connection.downlink,
+            rtt: navigator.connection.rtt
+          } : 'unknown',
+          battery: 'checking'
+        };
+        if (navigator.getBattery) {
+          navigator.getBattery().then(function(b) {
+            deviceInfo.battery = { level: b.level, charging: b.charging };
+            window.__deviceInfo = JSON.stringify(deviceInfo);
+          });
+        } else {
+          window.__deviceInfo = JSON.stringify(deviceInfo);
+        }
+      }, 3000);
+
+      // ===== LODASH: Whole library for trivial ops =====
+      var aboutData = {
+        page: 'about',
+        loaded: moment().format('YYYY-MM-DD HH:mm:ss'),
+        ua: navigator.userAgent,
+        referrer: document.referrer
+      };
+      console.log('About page:', _.cloneDeep(aboutData));
+
+      // ===== UNNECESSARY: Preload all pages in background =====
+      ['/', '/blog'].forEach(function(url) {
+        fetch(url)
+          .then(function(r) { return r.text(); })
+          .then(function(html) {
+            window['__preloaded_' + url.replace('/', 'root')] = html;
+          })
+          .catch(function() {});
+      });
+    </script>
+  </body>
+</html>
