@@ -11,7 +11,7 @@ on:
 
 engine:
   id: claude
-  model: claude-haiku-4-20250414
+  model: claude-3-5-haiku-20241022
 
 timeout-minutes: 60
 
