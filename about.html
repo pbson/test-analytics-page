@@ -632,17 +632,23 @@
           }
         }
 
-        // Running at 30fps — no pause when tab not visible
-        setInterval(draw, 33);
-
-        // Unnecessary resize listener that recreates everything
-        window.addEventListener('resize', function() {
-          canvas.width = window.innerWidth;
-          canvas.height = window.innerHeight;
-          var newColumns = Math.floor(canvas.width / fontSize);
-          drops = [];
-          for (var i = 0; i < newColumns; i++) drops[i] = Math.random() * canvas.height / fontSize;
+        // Animate only when motion is not reduced; pause when tab hidden; cap at 30fps
+        var matrixAnimId;
+        var lastFrame = 0;
+        function startMatrix() {
+          if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) { draw(); return; }
+          function loop(ts) {
+            matrixAnimId = requestAnimationFrame(loop);
+            if (ts - lastFrame < 33) return;
+            lastFrame = ts;
+            draw();
+          }
+          matrixAnimId = requestAnimationFrame(loop);
+        }
+        document.addEventListener('visibilitychange', function() {
+          if (document.hidden) { cancelAnimationFrame(matrixAnimId); } else { startMatrix(); }
         });
+        startMatrix();
       })();
 
       // ===== COUNTER ANIMATION (duplicate of homepage logic) =====
@@ -686,43 +692,6 @@
         });
       });
 
-      // ===== UNNECESSARY: Fetch GitHub stars count every 10 seconds =====
-      setInterval(function() {
-        fetch('https://api.github.com/repos/vercel/next.js')
-          .then(function(r) { return r.json(); })
-          .then(function(data) {
-            window.__githubStars = data.stargazers_count;
-          })
-          .catch(function() {});
-      }, 10000);
-
-      // ===== UNNECESSARY: Detect device capabilities on loop =====
-      setInterval(function() {
-        var deviceInfo = {
-          screen: {
-            width: screen.width,
-            height: screen.height,
-            colorDepth: screen.colorDepth,
-            pixelRatio: window.devicePixelRatio
-          },
-          memory: navigator.deviceMemory || 'unknown',
-          cores: navigator.hardwareConcurrency || 'unknown',
-          connection: navigator.connection ? {
-            type: navigator.connection.effectiveType,
-            downlink: navigator.connection.downlink,
-            rtt: navigator.connection.rtt
-          } : 'unknown',
-          battery: 'checking'
-        };
-        if (navigator.getBattery) {
-          navigator.getBattery().then(function(b) {
-            deviceInfo.battery = { level: b.level, charging: b.charging };
-            window.__deviceInfo = JSON.stringify(deviceInfo);
-          });
-        } else {
-          window.__deviceInfo = JSON.stringify(deviceInfo);
-        }
-      }, 3000);
 
       // ===== LODASH: Whole library for trivial ops =====
       var aboutData = {
