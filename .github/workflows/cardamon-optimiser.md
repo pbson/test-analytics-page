@@ -11,7 +11,7 @@ on:
   reaction: "eyes"
 
 engine:
-  id: claude
+  id: copilot
   model: claude-sonnet-4-6
 
 timeout-minutes: 60
