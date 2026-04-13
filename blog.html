@@ -1,32 +1,11 @@
 <!doctype html>
-<html>
+<html lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Blog - MegaStack</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet" />
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet" />
-    <link href="https://fonts.googleapis.com/css2?family=Source+Code+Pro:wght@400;600&display=swap" rel="stylesheet" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github-dark.min.css" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/css/bootstrap.min.css" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/MaterialDesign-Webfont/7.4.47/css/materialdesignicons.min.css" />
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.21/lodash.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.30.1/moment.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/marked/12.0.0/marked.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/7.9.0/d3.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/plotly.js/2.29.1/plotly.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/js/bootstrap.bundle.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.4/gsap.min.js"></script>
     <style>
-      @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap');
-
       * { box-sizing: border-box; margin: 0; padding: 0; }
 
       body {
@@ -36,54 +15,25 @@
         overflow-x: hidden;
       }
 
-      /* ===== ANIMATED GRID BACKGROUND ===== */
+      @media (prefers-reduced-motion: reduce) {
+        *, *::before, *::after {
+          animation-duration: 0.01ms !important;
+          transition-duration: 0.01ms !important;
+        }
+      }
+
       .grid-bg {
-        position: fixed;
-        top: 0; left: 0;
-        width: 100%; height: 100%;
-        z-index: 0;
+        position: fixed; top: 0; left: 0;
+        width: 100%; height: 100%; z-index: 0;
         background-image:
           linear-gradient(rgba(89,140,136,0.03) 1px, transparent 1px),
           linear-gradient(90deg, rgba(89,140,136,0.03) 1px, transparent 1px);
         background-size: 60px 60px;
-        animation: grid-move 20s linear infinite;
-      }
-      @keyframes grid-move {
-        0% { background-position: 0 0; }
-        100% { background-position: 60px 60px; }
       }
 
-      /* ===== FLOATING SHAPES ===== */
-      .floating-shapes {
-        position: fixed;
-        top: 0; left: 0;
-        width: 100%; height: 100%;
-        z-index: 1;
-        pointer-events: none;
-        overflow: hidden;
-      }
-      .shape {
-        position: absolute;
-        border: 1px solid rgba(89,140,136,0.1);
-        animation: shape-float linear infinite;
-      }
-      .shape.circle { border-radius: 50%; }
-      .shape.square { border-radius: 4px; }
-      @keyframes shape-float {
-        0% { transform: translateY(100vh) rotate(0deg); opacity: 0; }
-        10% { opacity: 0.5; }
-        90% { opacity: 0.5; }
-        100% { transform: translateY(-100vh) rotate(360deg); opacity: 0; }
-      }
-
-      /* ===== NAV ===== */
       nav {
-        position: sticky;
-        top: 0;
-        z-index: 1000;
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
+        position: sticky; top: 0; z-index: 1000;
+        display: flex; align-items: center; justify-content: space-between;
         padding: 1.25rem 2.5rem;
         background: rgba(10,10,15,0.7);
         backdrop-filter: blur(20px);
@@ -93,175 +43,82 @@
       .logo { font-size: 1.2rem; font-weight: 800; color: #fff; }
       .logo span { color: #598c88; }
       nav ul { display: flex; gap: 2rem; list-style: none; }
-      nav ul a {
-        color: #94a3b8;
-        text-decoration: none;
-        font-size: 0.875rem;
-        transition: color 0.3s ease;
-      }
+      nav ul a { color: #94a3b8; text-decoration: none; font-size: 0.875rem; transition: color 0.3s; }
       nav ul a:hover { color: #fff; }
       nav .cta-btn {
         background: linear-gradient(135deg, #598c88, #4a7a76);
-        color: #fff;
-        border: none;
-        padding: 0.6rem 1.5rem;
-        font-size: 0.875rem;
-        font-weight: 600;
-        cursor: pointer;
-        border-radius: 6px;
-        box-shadow: 0 4px 15px rgba(89,140,136,0.3);
+        color: #fff; border: none; padding: 0.6rem 1.5rem;
+        font-size: 0.875rem; font-weight: 600; cursor: pointer;
+        border-radius: 6px; box-shadow: 0 4px 15px rgba(89,140,136,0.3);
       }
 
-      /* ===== PAGE HEADER ===== */
       .page-header {
-        position: relative;
-        z-index: 10;
-        text-align: center;
-        padding: 7rem 2rem 4rem;
+        position: relative; z-index: 10;
+        text-align: center; padding: 7rem 2rem 4rem;
       }
       .page-header h1 {
-        font-size: 4rem;
-        font-weight: 900;
-        letter-spacing: -0.04em;
-        margin-bottom: 1rem;
+        font-size: 4rem; font-weight: 900; letter-spacing: -0.04em; margin-bottom: 1rem;
         background: linear-gradient(135deg, #fff, #94a3b8);
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
+        -webkit-background-clip: text; -webkit-text-fill-color: transparent;
       }
-      .page-header p {
-        font-size: 1.2rem;
-        color: #64748b;
-        max-width: 600px;
-        margin: 0 auto;
-        line-height: 1.8;
-      }
+      .page-header p { font-size: 1.2rem; color: #64748b; max-width: 600px; margin: 0 auto; line-height: 1.8; }
 
-      /* ===== FEATURED POST ===== */
+      .image-section {
+        position: relative; z-index: 10;
+        max-width: 1200px; margin: 2rem auto; padding: 0 2rem;
+      }
+      .image-section .grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; }
+      .image-section img { width: 100%; border-radius: 8px; }
+
       .featured-post {
-        position: relative;
-        z-index: 10;
-        max-width: 1200px;
-        margin: 3rem auto;
-        padding: 0 2rem;
+        position: relative; z-index: 10;
+        max-width: 1200px; margin: 3rem auto; padding: 0 2rem;
       }
       .featured-card {
-        background: rgba(255,255,255,0.03);
-        border: 1px solid rgba(255,255,255,0.06);
-        border-radius: 16px;
-        padding: 3rem;
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-        gap: 3rem;
-        align-items: center;
-        transition: all 0.4s ease;
-        position: relative;
-        overflow: hidden;
+        background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.06);
+        border-radius: 16px; padding: 3rem;
+        display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; align-items: center;
+        transition: all 0.4s;
       }
-      .featured-card::before {
-        content: '';
-        position: absolute;
-        top: -50%; left: -50%;
-        width: 200%; height: 200%;
-        background: conic-gradient(from 0deg, transparent, rgba(89,140,136,0.05), transparent, rgba(89,140,136,0.05), transparent);
-        animation: border-rotate 10s linear infinite;
-      }
-      @keyframes border-rotate {
-        100% { transform: rotate(360deg); }
-      }
-      .featured-card > * { position: relative; z-index: 1; }
       .featured-badge {
-        display: inline-block;
-        background: rgba(89,140,136,0.15);
-        color: #7ab5b0;
-        font-size: 0.7rem;
-        font-weight: 700;
-        padding: 0.3rem 0.8rem;
-        border-radius: 100px;
-        text-transform: uppercase;
-        letter-spacing: 0.1em;
-        margin-bottom: 1rem;
+        display: inline-block; background: rgba(89,140,136,0.15);
+        color: #7ab5b0; font-size: 0.7rem; font-weight: 700;
+        padding: 0.3rem 0.8rem; border-radius: 100px;
+        text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 1rem;
       }
-      .featured-card h2 {
-        font-size: 2rem;
-        font-weight: 800;
-        line-height: 1.2;
-        margin-bottom: 1rem;
-        letter-spacing: -0.02em;
-      }
-      .featured-card .excerpt {
-        color: #64748b;
-        line-height: 1.8;
-        margin-bottom: 1.5rem;
-      }
-      .featured-card .meta {
-        display: flex;
-        align-items: center;
-        gap: 1rem;
-        color: #64748b;
-        font-size: 0.8rem;
-      }
+      .featured-card h2 { font-size: 2rem; font-weight: 800; line-height: 1.2; margin-bottom: 1rem; letter-spacing: -0.02em; }
+      .featured-card .excerpt { color: #64748b; line-height: 1.8; margin-bottom: 1.5rem; }
+      .featured-card .meta { display: flex; align-items: center; gap: 1rem; color: #64748b; font-size: 0.8rem; }
       .featured-card .author-avatar {
-        width: 32px; height: 32px;
-        border-radius: 50%;
+        width: 32px; height: 32px; border-radius: 50%;
         background: linear-gradient(135deg, #598c88, #4a7a76);
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        color: #fff;
-        font-weight: 700;
-        font-size: 0.7rem;
+        display: flex; align-items: center; justify-content: center;
+        color: #fff; font-weight: 700; font-size: 0.7rem;
       }
       .featured-placeholder {
-        background: rgba(255,255,255,0.02);
-        border: 1px solid rgba(255,255,255,0.06);
-        border-radius: 12px;
-        height: 300px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        color: #334155;
-        font-size: 3rem;
+        background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.06);
+        border-radius: 12px; height: 300px;
+        display: flex; align-items: center; justify-content: center;
+        color: #334155; font-size: 3rem;
       }
 
-      /* ===== BLOG GRID ===== */
       .blog-section {
-        position: relative;
-        z-index: 10;
-        max-width: 1200px;
-        margin: 4rem auto;
-        padding: 0 2rem;
+        position: relative; z-index: 10;
+        max-width: 1200px; margin: 4rem auto; padding: 0 2rem;
       }
-      .blog-section h2 {
-        font-size: 2rem;
-        font-weight: 800;
-        margin-bottom: 2rem;
-        letter-spacing: -0.02em;
-      }
-      .blog-grid {
-        display: grid;
-        grid-template-columns: repeat(3, 1fr);
-        gap: 1.5rem;
-      }
+      .blog-section h2 { font-size: 2rem; font-weight: 800; margin-bottom: 2rem; letter-spacing: -0.02em; }
+      .blog-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; }
       .blog-card {
-        background: rgba(255,255,255,0.02);
-        border: 1px solid rgba(255,255,255,0.06);
-        border-radius: 12px;
-        overflow: hidden;
-        transition: all 0.4s cubic-bezier(0.4,0,0.2,1);
+        background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.06);
+        border-radius: 12px; overflow: hidden; transition: all 0.4s;
       }
       .blog-card:hover {
-        border-color: rgba(89,140,136,0.3);
-        transform: translateY(-8px);
+        border-color: rgba(89,140,136,0.3); transform: translateY(-8px);
         box-shadow: 0 20px 40px rgba(0,0,0,0.3);
       }
       .blog-thumb {
-        height: 180px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        font-size: 2.5rem;
-        position: relative;
-        overflow: hidden;
+        height: 180px; display: flex; align-items: center;
+        justify-content: center; font-size: 2.5rem;
       }
       .blog-thumb.t1 { background: linear-gradient(135deg, rgba(89,140,136,0.15), rgba(89,140,136,0.05)); }
       .blog-thumb.t2 { background: linear-gradient(135deg, rgba(140,89,100,0.15), rgba(140,89,100,0.05)); }
@@ -269,136 +126,51 @@
       .blog-thumb.t4 { background: linear-gradient(135deg, rgba(200,150,50,0.15), rgba(200,150,50,0.05)); }
       .blog-thumb.t5 { background: linear-gradient(135deg, rgba(100,200,89,0.15), rgba(100,200,89,0.05)); }
       .blog-thumb.t6 { background: linear-gradient(135deg, rgba(200,89,89,0.15), rgba(200,89,89,0.05)); }
-      .blog-body {
-        padding: 1.5rem;
-      }
+      .blog-body { padding: 1.5rem; }
       .blog-category {
-        display: inline-block;
-        font-size: 0.7rem;
-        font-weight: 700;
-        color: #598c88;
-        text-transform: uppercase;
-        letter-spacing: 0.08em;
-        margin-bottom: 0.75rem;
+        display: inline-block; font-size: 0.7rem; font-weight: 700;
+        color: #598c88; text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 0.75rem;
       }
-      .blog-card h3 {
-        font-size: 1.05rem;
-        font-weight: 700;
-        margin-bottom: 0.5rem;
-        line-height: 1.4;
-      }
-      .blog-card .excerpt {
-        color: #64748b;
-        font-size: 0.85rem;
-        line-height: 1.6;
-        margin-bottom: 1rem;
-      }
-      .blog-card .meta {
-        display: flex;
-        justify-content: space-between;
-        color: #475569;
-        font-size: 0.75rem;
-      }
-      .read-time {
-        display: flex;
-        align-items: center;
-        gap: 0.3rem;
-      }
+      .blog-card h3 { font-size: 1.05rem; font-weight: 700; margin-bottom: 0.5rem; line-height: 1.4; }
+      .blog-card .excerpt { color: #64748b; font-size: 0.85rem; line-height: 1.6; margin-bottom: 1rem; }
+      .blog-card .meta { display: flex; justify-content: space-between; color: #475569; font-size: 0.75rem; }
+      .read-time { display: flex; align-items: center; gap: 0.3rem; }
 
-      /* ===== NEWSLETTER ===== */
       .newsletter {
-        position: relative;
-        z-index: 10;
-        max-width: 700px;
-        margin: 6rem auto;
-        padding: 0 2rem;
-        text-align: center;
+        position: relative; z-index: 10;
+        max-width: 700px; margin: 6rem auto; padding: 0 2rem; text-align: center;
       }
       .newsletter-card {
-        background: rgba(255,255,255,0.03);
-        border: 1px solid rgba(255,255,255,0.06);
-        border-radius: 16px;
-        padding: 3rem;
+        background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.06);
+        border-radius: 16px; padding: 3rem;
       }
-      .newsletter h2 {
-        font-size: 2rem;
-        font-weight: 800;
-        margin-bottom: 0.75rem;
-      }
-      .newsletter p {
-        color: #64748b;
-        margin-bottom: 2rem;
-        line-height: 1.7;
-      }
-      .newsletter-form {
-        display: flex;
-        gap: 0.75rem;
-        max-width: 450px;
-        margin: 0 auto;
-      }
+      .newsletter h2 { font-size: 2rem; font-weight: 800; margin-bottom: 0.75rem; }
+      .newsletter p { color: #64748b; margin-bottom: 2rem; line-height: 1.7; }
+      .newsletter-form { display: flex; gap: 0.75rem; max-width: 450px; margin: 0 auto; }
       .newsletter-form input {
-        flex: 1;
-        background: rgba(255,255,255,0.05);
-        border: 1px solid rgba(255,255,255,0.1);
-        border-radius: 8px;
-        padding: 0.75rem 1rem;
-        color: #e2e8f0;
-        font-size: 0.9rem;
-        outline: none;
-        transition: border-color 0.3s;
+        flex: 1; background: rgba(255,255,255,0.05);
+        border: 1px solid rgba(255,255,255,0.1); border-radius: 8px;
+        padding: 0.75rem 1rem; color: #e2e8f0; font-size: 0.9rem;
+        outline: none; transition: border-color 0.3s;
       }
-      .newsletter-form input:focus {
-        border-color: rgba(89,140,136,0.5);
-      }
+      .newsletter-form input:focus { border-color: rgba(89,140,136,0.5); }
       .newsletter-form button {
         background: linear-gradient(135deg, #598c88, #4a7a76);
-        color: #fff;
-        border: none;
-        padding: 0.75rem 1.5rem;
-        font-size: 0.9rem;
-        font-weight: 600;
-        border-radius: 8px;
-        cursor: pointer;
-        transition: all 0.3s;
-        white-space: nowrap;
-      }
-      .newsletter-form button:hover {
-        transform: translateY(-2px);
-        box-shadow: 0 8px 20px rgba(89,140,136,0.4);
+        color: #fff; border: none; padding: 0.75rem 1.5rem;
+        font-size: 0.9rem; font-weight: 600; border-radius: 8px;
+        cursor: pointer; white-space: nowrap;
       }
 
-      /* ===== FOOTER ===== */
       footer {
-        position: relative;
-        z-index: 10;
+        position: relative; z-index: 10;
         border-top: 1px solid rgba(255,255,255,0.06);
-        padding: 3rem 2rem;
-        text-align: center;
-        color: #334155;
-        font-size: 0.8rem;
-      }
-
-      /* ===== READING PROGRESS ===== */
-      .reading-progress {
-        position: fixed;
-        top: 0; left: 0;
-        height: 3px;
-        background: linear-gradient(90deg, #598c88, #7ab5b0, #598c88);
-        background-size: 200% 100%;
-        animation: progress-shimmer 2s ease infinite;
-        z-index: 9999;
-      }
-      @keyframes progress-shimmer {
-        0% { background-position: 200% 0; }
-        100% { background-position: -200% 0; }
+        padding: 3rem 2rem; text-align: center; color: #334155; font-size: 0.8rem;
       }
     </style>
   </head>
   <body>
 
     <div class="grid-bg"></div>
-    <div class="floating-shapes" id="floatingShapes"></div>
-    <div class="reading-progress" id="readingProgress"></div>
 
     <nav>
       <div class="logo">Mega<span>Stack</span></div>
@@ -415,12 +187,11 @@
       <p>Insights on scaling infrastructure, shipping faster, and building the next generation of cloud apps — straight from our engineering team.</p>
     </section>
 
-    <!-- LARGE UNOPTIMISED IMAGES: no lazy loading, no WebP -->
-    <section style="position:relative;z-index:10;max-width:1200px;margin:2rem auto;padding:0 2rem">
-      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:1rem">
-        <img src="https://images.unsplash.com/photo-1486312338219-ce68d2c6f44d?w=1200&q=100&fm=jpg" alt="Blogging" width="800" height="500" style="width:100%;border-radius:8px" />
-        <img src="https://images.unsplash.com/photo-1519389950473-47ba0277781c?w=1200&q=100&fm=jpg" alt="Tech team" width="800" height="500" style="width:100%;border-radius:8px" />
-        <img src="https://images.unsplash.com/photo-1498050108023-c5249f4df085?w=1200&q=100&fm=jpg" alt="Code on screen" width="800" height="500" style="width:100%;border-radius:8px" />
+    <section class="image-section">
+      <div class="grid">
+        <img src="https://images.unsplash.com/photo-1486312338219-ce68d2c6f44d?w=600&q=75&fm=webp" alt="Blogging" width="600" height="375" loading="lazy" />
+        <img src="https://images.unsplash.com/photo-1519389950473-47ba0277781c?w=600&q=75&fm=webp" alt="Tech team" width="600" height="375" loading="lazy" />
+        <img src="https://images.unsplash.com/photo-1498050108023-c5249f4df085?w=600&q=75&fm=webp" alt="Code on screen" width="600" height="375" loading="lazy" />
       </div>
     </section>
 
@@ -452,10 +223,7 @@
             <div class="blog-category">Infrastructure</div>
             <h3>Why We Chose Kubernetes Over Everything Else</h3>
             <p class="excerpt">A practical guide to picking the right orchestration layer and why K8s won for our use case.</p>
-            <div class="meta">
-              <span>Feb 28, 2026</span>
-              <span class="read-time">⏱ 8 min</span>
-            </div>
+            <div class="meta"><span>Feb 28, 2026</span><span class="read-time">⏱ 8 min</span></div>
           </div>
         </div>
         <div class="blog-card">
@@ -464,10 +232,7 @@
             <div class="blog-category">Frontend</div>
             <h3>Loading 500 Components on a Single Page: Our Journey</h3>
             <p class="excerpt">How we built a mega-dashboard with 500+ widgets and made it render (eventually).</p>
-            <div class="meta">
-              <span>Feb 20, 2026</span>
-              <span class="read-time">⏱ 5 min</span>
-            </div>
+            <div class="meta"><span>Feb 20, 2026</span><span class="read-time">⏱ 5 min</span></div>
           </div>
         </div>
         <div class="blog-card">
@@ -476,10 +241,7 @@
             <div class="blog-category">Engineering</div>
             <h3>Our Microservices Architecture: 47 Services and Counting</h3>
             <p class="excerpt">How we decomposed our monolith into 47 microservices with independent deploy pipelines.</p>
-            <div class="meta">
-              <span>Feb 12, 2026</span>
-              <span class="read-time">⏱ 15 min</span>
-            </div>
+            <div class="meta"><span>Feb 12, 2026</span><span class="read-time">⏱ 15 min</span></div>
           </div>
         </div>
         <div class="blog-card">
@@ -488,10 +250,7 @@
             <div class="blog-category">DevOps</div>
             <h3>Running 1,000 CI Pipelines Per Day</h3>
             <p class="excerpt">Our CI/CD infrastructure processes 1,000+ pipeline runs daily. Here's how we keep it running.</p>
-            <div class="meta">
-              <span>Jan 30, 2026</span>
-              <span class="read-time">⏱ 10 min</span>
-            </div>
+            <div class="meta"><span>Jan 30, 2026</span><span class="read-time">⏱ 10 min</span></div>
           </div>
         </div>
         <div class="blog-card">
@@ -500,10 +259,7 @@
             <div class="blog-category">Frontend</div>
             <h3>Why We Use 7 JavaScript Frameworks in Production</h3>
             <p class="excerpt">Each team picks their own framework. Here's how we manage React, Vue, Angular, Svelte, and more.</p>
-            <div class="meta">
-              <span>Jan 22, 2026</span>
-              <span class="read-time">⏱ 7 min</span>
-            </div>
+            <div class="meta"><span>Jan 22, 2026</span><span class="read-time">⏱ 7 min</span></div>
           </div>
         </div>
         <div class="blog-card">
@@ -512,10 +268,7 @@
             <div class="blog-category">Security</div>
             <h3>Adding 12 Authentication Layers to Our API Gateway</h3>
             <p class="excerpt">We implemented OAuth, SAML, JWT, mTLS, API keys, HMAC, and more for enterprise security needs.</p>
-            <div class="meta">
-              <span>Jan 15, 2026</span>
-              <span class="read-time">⏱ 6 min</span>
-            </div>
+            <div class="meta"><span>Jan 15, 2026</span><span class="read-time">⏱ 6 min</span></div>
           </div>
         </div>
       </div>
@@ -525,7 +278,7 @@
       <div class="newsletter-card">
         <h2>Subscribe to MegaBytes</h2>
         <p>Our weekly newsletter on scaling, shipping, and building massive distributed systems.</p>
-        <form class="newsletter-form" onsubmit="handleSubscribe(event)">
+        <form class="newsletter-form" onsubmit="event.preventDefault(); var e=document.getElementById('emailInput').value; if(/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(e)){alert('Thanks for subscribing!')}else{alert('Please enter a valid email.')}">
           <input type="email" placeholder="your@email.com" id="emailInput" />
           <button type="submit">Subscribe</button>
         </form>
@@ -536,183 +289,5 @@
       &copy; 2026 MegaStack. All rights reserved. · Built with 🚀 for maximum scale
     </footer>
 
-    <!-- Tracking pixels -->
-    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNk+M9QDwADhgGAWjR9awAAAABJRU5ErkJggg==" alt="" style="display:none" />
-    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNk+M9QDwADhgGAWjR9awAAAABJRU5ErkJggg==" alt="" style="display:none" />
-    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNk+M9QDwADhgGAWjR9awAAAABJRU5ErkJggg==" alt="" style="display:none" />
-    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNk+M9QDwADhgGAWjR9awAAAABJRU5ErkJggg==" alt="" style="display:none" />
-
-    <script>
-      // ===== FLOATING SHAPES GENERATOR (40 animated DOM elements) =====
-      (function() {
-        var container = document.getElementById('floatingShapes');
-        for (var i = 0; i < 40; i++) {
-          var shape = document.createElement('div');
-          shape.className = 'shape ' + (Math.random() > 0.5 ? 'circle' : 'square');
-          var size = Math.random() * 60 + 20;
-          shape.style.width = size + 'px';
-          shape.style.height = size + 'px';
-          shape.style.left = Math.random() * 100 + '%';
-          shape.style.animationDuration = (Math.random() * 20 + 15) + 's';
-          shape.style.animationDelay = (Math.random() * 15) + 's';
-          container.appendChild(shape);
-        }
-      })();
-
-      // ===== READING PROGRESS (scroll listener) =====
-      window.addEventListener('scroll', function() {
-        var progress = document.getElementById('readingProgress');
-        var scrollTop = document.documentElement.scrollTop;
-        var scrollHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
-        var width = (scrollTop / scrollHeight) * 100;
-        progress.style.width = width + '%';
-      });
-
-      // ===== NEWSLETTER HANDLER (absurdly over-engineered) =====
-      function handleSubscribe(e) {
-        e.preventDefault();
-        var email = document.getElementById('emailInput').value;
-
-        // Unnecessary: validate email with multiple methods
-        var isValid1 = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
-        var isValid2 = email.indexOf('@') > 0;
-        var isValid3 = email.indexOf('.') > email.indexOf('@');
-        var isValid4 = email.length > 5;
-        var isValid5 = email.split('@').length === 2;
-        var isValid6 = !email.includes(' ');
-        var isValid7 = email.split('@')[1] ? email.split('@')[1].includes('.') : false;
-
-        if (isValid1 && isValid2 && isValid3 && isValid4 && isValid5 && isValid6 && isValid7) {
-          // Unnecessary: serialize everything for a simple subscribe
-          var payload = {
-            email: email,
-            timestamp: moment().toISOString(),
-            timezone: Intl.DateTimeFormat().resolvedOptions().timeZone,
-            locale: navigator.language,
-            referrer: document.referrer,
-            url: window.location.href,
-            title: document.title,
-            viewport: { w: window.innerWidth, h: window.innerHeight },
-            screen: { w: screen.width, h: screen.height },
-            colorDepth: screen.colorDepth,
-            pixelRatio: window.devicePixelRatio,
-            cookiesEnabled: navigator.cookieEnabled,
-            doNotTrack: navigator.doNotTrack,
-            platform: navigator.platform,
-            memory: navigator.deviceMemory || null,
-            cores: navigator.hardwareConcurrency || null,
-            connection: navigator.connection ? navigator.connection.effectiveType : null,
-            touchPoints: navigator.maxTouchPoints,
-            scrollDepth: window.scrollY / (document.body.scrollHeight - window.innerHeight),
-            sessionDuration: performance.now()
-          };
-          console.log('Subscribe payload:', JSON.stringify(payload, null, 2));
-          alert('Thanks for subscribing!');
-        } else {
-          alert('Please enter a valid email.');
-        }
-      }
-
-      // ===== UNNECESSARY: Animate blog cards stagger on every scroll =====
-      window.addEventListener('scroll', function() {
-        var cards = document.querySelectorAll('.blog-card');
-        cards.forEach(function(card, i) {
-          var rect = card.getBoundingClientRect();
-          if (rect.top < window.innerHeight * 0.9) {
-            card.style.transition = 'opacity 0.6s ease ' + (i * 0.1) + 's, transform 0.6s ease ' + (i * 0.1) + 's';
-            card.style.opacity = '1';
-            card.style.transform = 'translateY(0)';
-          }
-        });
-      });
-
-      // ===== UNNECESSARY: Build search index from page content =====
-      (function buildSearchIndex() {
-        var allText = document.body.innerText;
-        var words = allText.split(/\s+/);
-        var index = {};
-        words.forEach(function(word, position) {
-          var lower = word.toLowerCase().replace(/[^a-z0-9]/g, '');
-          if (lower.length > 2) {
-            if (!index[lower]) index[lower] = [];
-            index[lower].push(position);
-          }
-        });
-        window.__searchIndex = index;
-        console.log('Search index built:', Object.keys(index).length, 'terms');
-      })();
-
-      // ===== UNNECESSARY: Fetch and parse RSS feeds every 30 seconds =====
-      setInterval(function() {
-        var feeds = [
-          'https://blog.github.com/feed/',
-          'https://vercel.com/atom',
-          'https://cloudflare.com/rss/'
-        ];
-        feeds.forEach(function(feedUrl) {
-          fetch(feedUrl)
-            .then(function(r) { return r.text(); })
-            .then(function(xml) {
-              window['__feed_' + feedUrl.replace(/[^a-z]/g, '')] = xml.length;
-            })
-            .catch(function() {});
-        });
-      }, 30000);
-
-      // ===== UNNECESSARY: Check window focus every second =====
-      var focusLog = [];
-      setInterval(function() {
-        focusLog.push({
-          focused: document.hasFocus(),
-          visible: document.visibilityState === 'visible',
-          timestamp: Date.now(),
-          scrollY: window.scrollY,
-          mouseActive: window.__lastMouseMove ? (Date.now() - window.__lastMouseMove < 5000) : false
-        });
-        // Keep only last 500 entries (but still wastes memory)
-        if (focusLog.length > 500) focusLog = focusLog.slice(-250);
-        window.__focusLog = focusLog;
-      }, 1000);
-
-      document.addEventListener('mousemove', function() {
-        window.__lastMouseMove = Date.now();
-      });
-
-      // ===== UNNECESSARY: Calculate reading time for every heading dynamically =====
-      setInterval(function() {
-        var headings = document.querySelectorAll('h2, h3');
-        headings.forEach(function(h) {
-          var words = h.textContent.split(' ').length;
-          var readTime = Math.ceil(words / 200);
-          h.setAttribute('data-read-time', readTime + 'min');
-          h.setAttribute('data-word-count', words);
-          h.setAttribute('data-char-count', h.textContent.length);
-          h.setAttribute('data-timestamp', new Date().toISOString());
-        });
-      }, 5000);
-
-      // ===== LODASH + MOMENT (whole libs for trivial use) =====
-      var blogData = {
-        page: 'blog',
-        postCount: document.querySelectorAll('.blog-card').length,
-        loaded: moment().format('YYYY-MM-DD HH:mm:ss'),
-        timeAgo: moment('2026-03-15').fromNow()
-      };
-      var sorted = _.sortBy(
-        _.map(document.querySelectorAll('.blog-card h3'), function(el) { return el.textContent; }),
-        function(title) { return title.length; }
-      );
-      console.log('Blog loaded:', _.cloneDeep(blogData), 'Sorted titles:', sorted);
-
-      // ===== UNNECESSARY: Preload other pages =====
-      ['/', '/about'].forEach(function(url) {
-        fetch(url)
-          .then(function(r) { return r.text(); })
-          .then(function(html) {
-            window['__preloaded_' + url.replace('/', 'root')] = html;
-          })
-          .catch(function() {});
-      });
-    </script>
   </body>
 </html>
