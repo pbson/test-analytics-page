@@ -11,7 +11,8 @@ on:
   reaction: "eyes"
 
 engine:
-  id: copilot
+  id: claude
+  model: claude-haiku-4-5-20251001
 
 timeout-minutes: 120
 
