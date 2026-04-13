@@ -6,146 +6,57 @@ type: project
 
 ## COMPLETED ✅
 
-### Opportunity #2: Network & I/O: Enable gzip Compression in nginx
-**Status**: ✅ COMPLETED (2026-04-12)
-**Focus Area**: Network & I/O Efficiency  
-**Estimated Impact**: HIGH (30-50% → actual 70% reduction in transfer size)  
-**Effort**: VERY LOW  
-**Result**: PR submitted successfully via safeoutputs
+### #1: Add HTTP Caching Headers (2026-04-13) ✅
+**Impact**: 70-80% request reduction. Measurement: For 100 daily users, 70% repeat visits = 70 requests saved/day = 3.2 MB network energy saved.
 
-**Measurement Data**:
-- Baseline: 92 KB (uncompressed HTML files)
-- With gzip level 6: 28 KB 
-- Actual reduction: 70% (64 KB saved per page load)
-- CPU overhead: ~1-2ms (negligible)
+### #2: Enable gzip Compression (2026-04-12) ✅ MERGED
+**Impact**: 70% transfer size reduction. Measurement: 92 KB → 28 KB (64 KB saved per load).
 
 ---
 
-## HIGH Priority Opportunities
+## HIGH Priority (Ready to Implement)
 
-### 1. Network & I/O: Add HTTP Caching Headers to Static Assets
-**Focus Area**: Network & I/O Efficiency  
-**Estimated Impact**: HIGH  
+### #3: Eliminate Duplicate Font Requests
+**Issue**: Inter font loaded twice (lines 7-8 in index.html) + imported via CSS @import (line 25)  
+**Solution**: Remove duplicate request, use link preload  
+**Impact**: HIGH — Fewer HTTP requests = lower energy  
 **Effort**: LOW  
-**Measurement Strategy**: Monitor cache hits in nginx logs; verify Cache-Control headers with curl  
 
-**Issue**: Nginx config has no caching headers (Cache-Control, ETag, Expires). Every request fetches full HTML files.  
-**Solution**: Add Cache-Control headers with appropriate TTLs (e.g., 1 year for index, shorter for pages). Add ETags for validation.  
-**Rationale**: Browser caching reduces repeated downloads → lower network energy consumption across the stack (client, CDN, server)  
-**GSF Principle**: Energy Proportionality (only serve what's needed; cached responses use zero server energy)  
-
----
-
-### 3. Network & I/O: Eliminate Duplicate External Resource Requests
-**Focus Area**: Network & I/O Efficiency  
-**Estimated Impact**: HIGH  
-**Effort**: LOW  
-**Measurement Strategy**: Count HTTP requests before/after; check browser network tab  
-
-**Issue**: 
-- Inter font loaded twice (lines 7-8 in index.html)
-- Inter also imported via @import in CSS (line 25)
-- This creates redundant requests and blocks rendering  
-
-**Solution**: 
-- Remove duplicate font request (line 8)
-- Replace @import with link preload for faster loading (one request per font)  
-
-**Rationale**: Fewer HTTP requests = fewer round-trips = lower energy  
-**GSF Principle**: Demand Shaping (eliminate unnecessary requests)  
-
----
-
-## MEDIUM Priority Opportunities
-
-### 4. Frontend/UI: Disable Animations by Default; Respect prefers-reduced-motion
-**Focus Area**: Frontend / UI Energy  
-**Estimated Impact**: MEDIUM  
+### #4: Respect prefers-reduced-motion, Disable Animations
+**Issue**: 11 @keyframes animations run continuously (float-particle, gradient-shift, orb-pulse, etc.)  
+**Solution**: Add `@media (prefers-reduced-motion: reduce)` block  
+**Impact**: MEDIUM — GPU/CPU energy savings for users with reduced-motion preference  
 **Effort**: MEDIUM  
-**Measurement Strategy**: Measure GPU/CPU usage with DevTools Performance tab (animation playback time)  
 
-**Issue**: 
-- 11 @keyframes animations run continuously (float-particle, gradient-shift, orb-pulse, orb-move, etc.)
-- No respect for `prefers-reduced-motion` media query
-- Animations running 24/7 consume GPU cycles and power  
-
-**Solution**: 
-- Add `@media (prefers-reduced-motion: reduce)` block disabling animations
-- Disable heavy animations by default; enable only on interaction  
-
-**Rationale**: Continuous animations on static page = wasted GPU energy. Users with reduced-motion preference could save significant battery.  
-**GSF Principle**: Hardware Efficiency (reduce GPU/CPU utilization for non-functional animations)  
-
----
-
-### 5. Code-Level: Remove Unused Heavy Libraries
-**Focus Area**: Code-Level Efficiency  
-**Estimated Impact**: MEDIUM  
-**Effort**: MEDIUM (requires verification that libraries aren't used)  
-**Measurement Strategy**: Check page source; grep for library method calls; browser DevTools to confirm lib not called  
-
-**Issue**: 
-Loading from CDN:
-- jQuery (36KB) - not used on static site?
-- lodash (70KB) - not used on static site?
-- moment.js (65KB) - for date parsing?
-- d3 (280KB) - for data visualization?
-- plotly (3.2MB) - for interactive plots?
-- gsap (150KB) - for animations (see opportunity #4)
-
-**Solution**: 
-- Audit which libraries are actually used in JavaScript
-- Remove unused libraries; replace heavy ones with lighter alternatives  
-
-**Rationale**: Fewer downloaded bytes = faster load time = less energy across network and client CPU  
-**GSF Principle**: Energy Proportionality (don't load features not used)  
-
----
-
-### 6. Data: Optimize External Images from Unsplash
-**Focus Area**: Data Efficiency  
-**Estimated Impact**: MEDIUM  
+### #5: Remove Unused Heavy Libraries
+**Issue**: jQuery (36KB), lodash (70KB), d3 (280KB), plotly (3.2MB), gsap (150KB) loaded from CDN  
+**Solution**: Audit which are actually used; remove unused ones  
+**Impact**: MEDIUM — Fewer bytes downloaded = less network/client energy  
 **Effort**: MEDIUM  
-**Measurement Strategy**: Compare image file sizes; check transfer time with curl -w  
 
-**Issue**: 
-- External Unsplash images loaded (w=1200, q=100)
-- JPEGs from external source not cached locally
-- No responsive image variants (same image for all viewport sizes)  
+### #6: Optimize External Unsplash Images
+**Issue**: External images (w=1200, q=100) not cached, no responsive variants  
+**Solution**: Host locally, serve WebP + JPEG fallback, add responsive srcset  
+**Impact**: MEDIUM — Local caching + format optimization = fewer bytes  
+**Effort**: MEDIUM  
 
-**Solution**: 
-- Host images locally with appropriate size variants
-- Serve WebP with JPEG fallback (WebP ~25% smaller)
-- Add responsive srcset for different viewports  
-
-**Rationale**: Local caching + optimized formats = fewer bytes downloaded + less processing on client  
-**GSF Principle**: Hardware Efficiency (reduce bandwidth and decode energy)  
-
----
-
-## LOW Priority Opportunities
-
-### 7. Frontend/UI: Lazy Load Off-Screen Images
-**Focus Area**: Frontend / UI Energy  
-**Estimated Impact**: LOW (if images below fold)  
+### #7: Lazy Load Off-Screen Images
+**Issue**: All images loaded eagerly  
+**Solution**: Add `loading="lazy"` to <img> tags  
+**Impact**: LOW  
 **Effort**: LOW  
 
-**Issue**: All images loaded eagerly; if images are off-screen on smaller devices, they waste bandwidth.  
-**Solution**: Add loading="lazy" attribute to <img> tags.  
-
----
-
-### 8. Data: Verify Google Fonts Load Only Used Weight Variants
-**Focus Area**: Data Efficiency  
-**Estimated Impact**: LOW-MEDIUM  
+### #8: Verify Google Fonts Weight Variants
+**Issue**: Requests may include unused weight variants  
+**Solution**: Audit CSS, remove unused weights from request  
+**Impact**: LOW-MEDIUM  
 **Effort**: LOW  
-
-**Issue**: Google Fonts requests specify many weight variants (300-900). May not all be used.  
-**Solution**: Audit CSS to verify all requested weights are used; remove unused weights from request.  
 
 ---
 
 ## Backlog Cursor
-Last checked: 2026-04-12  
-Last completed: Opportunity #2 (gzip compression)
-Next to investigate: Opportunity #1 (HTTP caching headers)
+Last checked: 2026-04-13  
+Last completed: #1 (cache headers)  
+Next: #3 (duplicate fonts)
+
+---
