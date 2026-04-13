@@ -11,8 +11,8 @@ on:
   reaction: "eyes"
 
 engine:
-  id: claude
-  model: claude-sonnet-4-6
+  id: gemini
+  model: gemini-3.1-pro-preview
 
 timeout-minutes: 120
 
