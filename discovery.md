@@ -1,6 +1,6 @@
 # Repository Discovery - Test Analytics Page
 
-**Date:** 2026-04-13
+**Date:** 2026-04-13 (updated)
 
 ## Project Overview
 - **Type**: Static HTML marketing website (MegaStack cloud platform)
@@ -9,69 +9,61 @@
 - **Deployment**: Docker + Nginx with gzip compression
 - **Pages**: 3 (index.html, about.html, blog.html)
 
-## External Dependencies
+## External Dependencies (as of 2026-04-13)
 
 ### Fonts
-- **Google Fonts**: Inter (weights: 300, 400, 500, 600, 700, 800, 900)
-- **Loaded on**: All 3 pages with `display=swap`
-- **Impact**: Heavy - loading 7 font weights on every page
+- **Google Fonts**: Inter (weights: 300, 400, 500, 600, 700, 800, 900) - loaded twice + @import
+- **Unused**: Roboto, Playfair Display, Source Code Pro (font-family never used in CSS)
+- **Loaded on**: All 3 pages
 
-### Images  
-- **Count**: 16 images total across all pages
-- **Source**: Unsplash CDN (https://images.unsplash.com/)
-- **Format**: WebP (optimized)
-- **Dimensions**: 600x375px or 700x467px
-- **Loading**: All use `loading="lazy"` (good)
-- **Issue**: All served from external CDN
+### CSS Libraries (all pages)
+- Font Awesome 6.5.1 - USED on index.html only (6 icons), UNUSED on about/blog
+- Animate.css 4.1.1 - UNUSED on all pages
+- Bootstrap CSS 5.3.2 - UNUSED on all pages
+- Material Design Icons 7.4.47 - UNUSED on all pages
+- highlight.js github-dark CSS (blog.html) - UNUSED
 
-### Scripts
-- **Inline**: Only 1 small form validator on blog.html (onsubmit handler)
-- **No external JS libraries**
+### JS Libraries (all pages)
+- jQuery 3.7.1 - UNUSED on all pages
+- Lodash.js 4.17.21 - Used for console.log convenience (_.cloneDeep, _.sortBy, _.map)
+- Moment.js 2.30.1 - Used for console.log timestamps
+- D3.js 7.9.0 - UNUSED on all pages
+- Plotly.js 2.29.1 - UNUSED on all pages (~3MB each!)
+- Bootstrap bundle JS 5.3.2 - UNUSED on all pages
+- GSAP 3.12.4 - UNUSED on all pages
+- GSAP ScrollTrigger (index) - UNUSED
+- Three.js r128 (about) - UNUSED (~600KB)
+- marked.js 12.0.0 (blog) - UNUSED
+- highlight.js 11.9.0 (blog) - UNUSED
+- Chart.js 4.4.1 (blog) - UNUSED
 
-### Stylesheets
-- **Type**: All inline `<style>` tags
-- **Issue**: CSS is duplicated across 3 files (no shared stylesheet)
+## CPU/Timer Issues (Frontend Pillar 1)
 
-## Cardamon Pillar Analysis
+### index.html
+- 60 CSS-animated particles (float-particle infinite)
+- mousemove handler: calculates distance on every pixel
+- setInterval 100ms: reads getBoundingClientRect on all .feature-card elements
+- setInterval 5000ms: fetch worldtimeapi.org
+- setInterval 2000ms: getComputedStyle on ALL DOM elements (very expensive!)
 
-### Pillar 1 - Frontend Device Energy ✅ LOW CONCERN
-- No timers or setInterval
-- No requestAnimationFrame loops
-- No scroll/resize event handlers with layout queries
-- `prefers-reduced-motion` already supported on all pages
-- Transitions use CSS (standard 0.3s - 0.4s), minimal CPU impact
+### about.html
+- Matrix rain canvas at 30fps (setInterval 33ms) - highest CPU impact!
+- setInterval 10000ms: fetch GitHub API for stars count
+- setInterval 3000ms: detect device capabilities
+- scroll listener: queries getBoundingClientRect on all team/value/mission cards
 
-### Pillar 2 - Network Transfer ⚠️ HIGH IMPACT OPPORTUNITY
-- **Font Loading**: Inter with all 7 weights (300-900) loaded on every page
-  - Estimated: ~80KB+ per page load (uncompressed)
-  - Only a subset of weights is actually used in design
-- **Duplicate CSS**: Identical CSS rules repeated in 3 files
-  - Navigation, footer, typography rules duplicated
-- **Images**: 16 external images, lazy-loaded but from CDN
-  - Estimated: ~600KB+ total across all pages
-
-### Pillar 3 - Server Energy ✅ GOOD
-- Nginx with gzip compression enabled
-- Static files - minimal server processing
-- Smart cache headers configured
-
-## High-Impact Optimization Opportunities (Ranked)
-
-1. **Font Optimization** - Reduce Inter weights from 7 to 3-4 actually used
-   - Estimated savings: 40-50KB per page = major infrastructure energy reduction
-   - Pillar: Network Transfer (both device radio + infrastructure)
-
-2. **Image Optimization** - Already good (WebP, lazy, external CDN)
-   - Minor opportunity: verify image dimensions match display sizes
-
-3. **CSS Deduplication** - Extract shared styles to separate file
-   - Note: Would require either build step or minor server changes
+### blog.html
+- setInterval 30000ms: fetch RSS feeds from 3 URLs
+- setInterval 1000ms: focus log recording (every second!)
+- setInterval 5000ms: update heading attributes (read time, word count, etc.)
+- buildSearchIndex: builds full-text index on page load (one-time)
+- Preloads / and /about via fetch on page load
 
 ## Server Configuration
-- Gzip enabled (good)
-- Response compression: text/css, text/javascript, application/json ✅
-- No cache headers visible in config
+- Nginx with gzip compression for text/css, text/javascript, application/json
+- Static files - minimal server processing
 
-## Accessibility Status
-- prefers-reduced-motion: Implemented on all pages ✅
-- Font weights: 9 weights declared (could be reduced)
+## Actual Font Weights Used in CSS
+- 600, 700, 800, 900 (explicit)
+- 400 (implicit body text default)
+- NOT USED: 300, 500
