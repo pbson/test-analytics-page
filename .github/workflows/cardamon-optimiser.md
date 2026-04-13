@@ -11,8 +11,7 @@ on:
   reaction: "eyes"
 
 engine:
-  id: gemini
-  model: gemini-3.1-pro-preview
+  id: copilot
 
 timeout-minutes: 120
 
