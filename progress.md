@@ -1,6 +1,6 @@
 # Cardamon Optimisation Progress
 
-**Last Updated:** 2026-04-13
+**Last Updated:** 2026-04-14
 
 ## Completed Tasks
 
@@ -14,47 +14,40 @@
 - **PR #12**: "Remove unused external dependencies to reduce network transfer"
 - **Branch**: cardamon/remove-unused-dependencies-8ad77017f52973df
 - **Status**: Open, awaiting merge
-
-**What was removed:**
-- 3 unused font families: Roboto, Playfair Display, Source Code Pro
-- Duplicate Inter font import + redundant @import
-- Inter weight optimised from 7 weights to 5 (400,600,700,800,900)
-- CSS: Animate.css, Bootstrap CSS, Material Design Icons (all pages)
-- CSS: Font Awesome (about.html, blog.html only - kept on index.html)
-- CSS: highlight.js github-dark (blog.html)
-- JS: jQuery, D3.js, Plotly.js, Bootstrap bundle JS, GSAP (all pages)
-- JS: GSAP ScrollTrigger (index.html)
-- JS: Three.js (about.html)
-- JS: marked.js, highlight.js, Chart.js (blog.html)
-- **Estimated savings: ~3.5MB+ across all 3 pages combined**
+- **Savings**: ~3.5MB across all 3 pages combined
 
 ### 🔧 Task 3: Frontend CPU - Remove Unnecessary Timers
-- **PR Created**: "Remove unnecessary CPU-intensive timers"
-- **Branch**: cardamon/remove-unnecessary-timers
+- **PR #16**: "Remove unnecessary CPU-intensive timers (Frontend CPU pillar)"
+- **Branch**: cardamon/remove-unnecessary-timers-b956f771ade94fbf
 - **Status**: Open, awaiting merge
 - **Run**: 24371979945
 
-**What was removed (index.html):**
-- setInterval(100ms): getBoundingClientRect on all .feature-card elements
-- setInterval(5000ms): fetch worldtimeapi.org external API
-- setInterval(2000ms): getComputedStyle on ALL DOM elements
+### 🔧 Task 4: Screen Energy - prefers-reduced-motion CSS
+- **PR**: Created in run 24384123711 (branch: cardamon/prefers-reduced-motion-wf24384123711)
+- **Status**: Open, awaiting merge
+- Added `@media (prefers-reduced-motion: reduce)` to index.html, about.html, blog.html
+- Stops 19 infinite CSS animations across all 3 pages
 
-**What was removed (about.html):**
-- setInterval(33ms) matrix rain → replaced with rAF capped at 30fps + visibility API + prefers-reduced-motion
-- setInterval(10000ms): fetch GitHub API stars
-- setInterval(3000ms): detect device capabilities loop
+### 🔧 Task 5: Server Config - Gzip Compression
+- **PR**: Created in run 24384123711 (branch: cardamon/add-gzip-compression-wf24384123711)
+- **Status**: Open, awaiting merge
+- Added gzip to nginx.conf: on, comp_level 6, min_length 1024, vary on
+- Estimated ~60-80% reduction in HTML transfer sizes (~66 KB per 3-page session)
 
-**What was removed (blog.html):**
-- setInterval(1000ms): focus log recording
-- setInterval(30000ms): fetch 3 RSS feeds
-- setInterval(5000ms): update heading data-attributes
+### Other PRs (from other agents)
+- **PR #14**: Cache-Control headers (from Daily Efficiency Improver) - Open
 
 ## Remaining Tasks
 
-### 🟡 Task 5: Caching Headers
-- PR #14 (from other agent) already open with Cache-Control headers in nginx.conf
-- No need to duplicate this work
+### None identified
+All major Cardamon pillars have been addressed:
+- Network Transfer: PR #12 (dependencies) + gzip PR
+- Frontend CPU: PR #16 (timers)
+- Screen Energy: prefers-reduced-motion PR
+- Server Config: gzip PR + PR #14 (cache headers)
 
-### Low priority remaining items
-- Click event logger in index.html (addEventListener, only fires on user action)
-- Preload fetches in about.html and blog.html (one-time, not loops)
+### Low priority remaining items (not worth separate PRs)
+- mousemove handler in index.html (only fires on user action, not continuous)
+- Click event logger in index.html (only fires on click, not continuous)
+- Preload fetches in about.html and blog.html (one-time on load, not loops)
+- Scroll event handlers (read-only, no layout writes)
