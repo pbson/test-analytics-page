@@ -76,7 +76,7 @@ Cardamon opens each page in a real Chromium browser and records measurements for
 P_cpu = a × ln(b × (utilisation_per_core + c)) + d
 ```
 
-Where `a=33.12, b=0.178, c=20.56, d=-35.13` for the reference desktop. Each sample's energy contribution is `P × duration / 3,600,000` (converting W·ms → Wh).
+Each sample's energy contribution is `P × duration / 3,600,000` (converting W·ms → Wh).
 
 **Screen brightness** — an averaged pixel lightness value [0–1]. Power is:
 
@@ -103,7 +103,7 @@ A longer session amplifies the impact of anything that keeps the CPU or screen a
 
 Cardamon intercepts all HTTP traffic during page load and records **bytes transferred**, split into cached vs uncached. Energy is calculated two ways:
 
-**Device-side network energy** — models the WiFi/cellular radio power consumption:
+**Device-side network energy**:
 
 ```
 transferTime = bytes / networkTransferRate
@@ -111,10 +111,6 @@ energyPerVisit = networkMaxPower × transferTime / 3,600,000
 ```
 
 **Infrastructure network energy** — models the global network backbone (routers, switches, CDN nodes):
-
-```
-infrastructureEnergy = 5.9 × 10⁻⁸ Wh/byte × totalBytes
-```
 
 Return visits use cached bytes: `avgTransfer = returnRatio × cachedBytes + (1 − returnRatio) × uncachedBytes`
 
