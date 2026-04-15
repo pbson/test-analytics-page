@@ -1,6 +1,6 @@
 # Cardamon Optimisation Progress
 
-**Last Updated:** 2026-04-14
+**Last Updated:** 2026-04-15
 
 ## Completed Tasks
 
@@ -23,16 +23,14 @@
 - **Run**: 24371979945
 
 ### 🔧 Task 4: Screen Energy - prefers-reduced-motion CSS
-- **PR**: Created in run 24384123711 (branch: cardamon/prefers-reduced-motion-wf24384123711)
+- **PR #17**: Created in run 24384123711 (branch: cardamon/prefers-reduced-motion-wf24384123711...)
 - **Status**: Open, awaiting merge
-- Added `@media (prefers-reduced-motion: reduce)` to index.html, about.html, blog.html
 - Stops 19 infinite CSS animations across all 3 pages
 
 ### 🔧 Task 5: Server Config - Gzip Compression
-- **PR**: Created in run 24384123711 (branch: cardamon/add-gzip-compression-wf24384123711)
+- **PR**: Created in run 24439579775 (branch: cardamon/add-gzip-compression-wf24439579775)
 - **Status**: Open, awaiting merge
-- Added gzip to nginx.conf: on, comp_level 6, min_length 1024, vary on
-- Estimated ~60-80% reduction in HTML transfer sizes (~66 KB per 3-page session)
+- Estimated ~65-75% reduction in HTML transfer sizes (~60-100 KB per 3-page session)
 
 ### Other PRs (from other agents)
 - **PR #14**: Cache-Control headers (from Daily Efficiency Improver) - Open
@@ -43,7 +41,7 @@
 All major Cardamon pillars have been addressed:
 - Network Transfer: PR #12 (dependencies) + gzip PR
 - Frontend CPU: PR #16 (timers)
-- Screen Energy: prefers-reduced-motion PR
+- Screen Energy: PR #17 (prefers-reduced-motion)
 - Server Config: gzip PR + PR #14 (cache headers)
 
 ### Low priority remaining items (not worth separate PRs)
