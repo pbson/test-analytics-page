@@ -1,6 +1,6 @@
 # Cardamon Optimisation Progress
 
-**Last Updated:** 2026-04-15
+**Last Updated:** 2026-04-16
 
 ## Completed Tasks
 
@@ -20,17 +20,16 @@
 - **PR #16**: "Remove unnecessary CPU-intensive timers (Frontend CPU pillar)"
 - **Branch**: cardamon/remove-unnecessary-timers-b956f771ade94fbf
 - **Status**: Open, awaiting merge
-- **Run**: 24371979945
 
 ### 🔧 Task 4: Screen Energy - prefers-reduced-motion CSS
-- **PR #17**: Created in run 24384123711 (branch: cardamon/prefers-reduced-motion-wf24384123711...)
+- **PR #17**: prefers-reduced-motion CSS (branch: cardamon/prefers-reduced-motion-wf24384123711...)
 - **Status**: Open, awaiting merge
 - Stops 19 infinite CSS animations across all 3 pages
 
 ### 🔧 Task 5: Server Config - Gzip Compression
-- **PR**: Created in run 24439579775 (branch: cardamon/add-gzip-compression-wf24439579775)
+- **PR #18**: Enable gzip compression in nginx (branch: cardamon/add-gzip-compression-wf24439579775)
 - **Status**: Open, awaiting merge
-- Estimated ~65-75% reduction in HTML transfer sizes (~60-100 KB per 3-page session)
+- Estimated ~65-75% reduction in HTML transfer sizes
 
 ### Other PRs (from other agents)
 - **PR #14**: Cache-Control headers (from Daily Efficiency Improver) - Open
@@ -39,13 +38,20 @@
 
 ### None identified
 All major Cardamon pillars have been addressed:
-- Network Transfer: PR #12 (dependencies) + gzip PR
+- Network Transfer: PR #12 (dependencies) + PR #18 (gzip)
 - Frontend CPU: PR #16 (timers)
 - Screen Energy: PR #17 (prefers-reduced-motion)
-- Server Config: gzip PR + PR #14 (cache headers)
+- Server Config: PR #18 (gzip) + PR #14 (cache headers)
 
 ### Low priority remaining items (not worth separate PRs)
 - mousemove handler in index.html (only fires on user action, not continuous)
 - Click event logger in index.html (only fires on click, not continuous)
 - Preload fetches in about.html and blog.html (one-time on load, not loops)
 - Scroll event handlers (read-only, no layout writes)
+
+## Run Log
+- 2026-04-13: Discovery + PR #12
+- 2026-04-13: PR #16 (timers)
+- 2026-04-14: PR #17 (prefers-reduced-motion)
+- 2026-04-15: PR #18 (gzip compression)
+- 2026-04-16: Verified all PRs open, no new work needed, updated monthly issue
