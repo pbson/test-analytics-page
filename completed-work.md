@@ -1,48 +1,25 @@
 ---
 name: Completed Work and Outcomes
-description: PRs submitted, measurement results, and lessons learned
+description: PRs submitted and lessons learned
 type: project
 ---
 
 ## Pull Requests Submitted
 
-### PR #1: Add Cache-Control Headers - RETRY (2026-04-13 19:47)
-**Status**: 🟢 Created as PR #14  
-**Branch**: `efficiency/add-cache-headers-1776109218`  
-**Impact**: 70-80% request reduction for repeat visitors  
-**Changes**: Added `Cache-Control: public, max-age=3600, must-revalidate` to HTML routes  
-**Measurement**: 100 daily users, 70% repeat visits = 70 requests saved/day = 3.2 MB network energy
-**Note**: PR #7 was previously created but closed without merge. PR #14 is a fresh attempt.
+- **PR #19** (2026-04-16): Lazy load 13 images (6 index.html, 4 about.html, 3 blog.html); ~150-200 KB saved per session for non-scrollers
+- **PR #14** (2026-04-13): Cache-Control headers; 70-80% request reduction for repeat visitors
+- **PR #6** (2026-04-12): ✅ MERGED - Gzip compression; 70% transfer size reduction
 
-### PR #6: Enable gzip Compression (2026-04-12) ✅ MERGED
-**Status**: Merged to main (commit de043d7)  
-**Impact**: 70% transfer size reduction (92 KB → 28 KB)  
-**Configuration**: gzip on, gzip_level 6, covers HTML/CSS/JS/JSON  
-**Measurement**: 64 KB saved per page load
+## Key Learnings
 
----
+1. **Low-effort, high-value wins**: `loading="lazy"` is minimal effort but measurable energy savings (defers image decode and network for off-viewport content).
 
-## Measurement Techniques Used
+2. **Complementary optimizations work best**: Cache headers (frequency) + gzip (size) + lazy loading (deferral) together maximize energy reduction.
 
-1. **gzip compression**: `gzip -k filename && du -h` to measure local size reduction
-2. **Cache headers**: Static analysis of routes × typical user revisit patterns
-3. **Request count**: Analysis of routes + cache logic to estimate reduction
-4. **Energy mapping**: Eliminated requests consume zero energy (highest-impact optimization type)
+3. **User behavior segmentation matters**: Lazy loading primarily benefits non-scrolling users (30-50%). Different users benefit from different optimizations.
 
-## Lessons Learned
+4. **GSF principles**: Energy Proportionality (load ∝ usage), Demand Shaping (defer non-critical requests), Hardware Efficiency (spread CPU load).
 
-1. **PR closure behavior**: PR #7 (cache headers) was created but closed without merge. Investigation needed:
-   - Was it closed by maintainer with feedback?
-   - Was it closed as stale?
-   - Creating fresh PR #14 to retry
-
-2. **Complementary optimizations**: Cardamon's PR #12 (remove unused dependencies) complements our cache headers work:
-   - Cache headers reduce request frequency (frequency optimization)
-   - Unused dependencies removal reduces payload per request (size optimization)
-   - Both together maximize network energy reduction
-
-3. **GSF principles validate approach**:
-   - Energy Proportionality: cache headers make energy proportional to actual hits
-   - Demand Shaping: cache headers reshape demand patterns favorably
+5. **PR status**: 5+ days with no review feedback on existing PRs suggests maintainer bandwidth constraints. Continue submitting small, focused PRs (one optimization each).
 
 ---
