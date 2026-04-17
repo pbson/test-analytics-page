@@ -1,6 +1,6 @@
 # Cardamon Optimisation Progress
 
-**Last Updated:** 2026-04-16
+**Last Updated:** 2026-04-17
 
 ## Completed Tasks
 
@@ -33,6 +33,7 @@
 
 ### Other PRs (from other agents)
 - **PR #14**: Cache-Control headers (from Daily Efficiency Improver) - Open
+- **PR #19**: Lazy loading images (from Daily Efficiency Improver) - Open
 
 ## Remaining Tasks
 
@@ -43,15 +44,10 @@ All major Cardamon pillars have been addressed:
 - Screen Energy: PR #17 (prefers-reduced-motion)
 - Server Config: PR #18 (gzip) + PR #14 (cache headers)
 
-### Low priority remaining items (not worth separate PRs)
-- mousemove handler in index.html (only fires on user action, not continuous)
-- Click event logger in index.html (only fires on click, not continuous)
-- Preload fetches in about.html and blog.html (one-time on load, not loops)
-- Scroll event handlers (read-only, no layout writes)
-
 ## Run Log
 - 2026-04-13: Discovery + PR #12
 - 2026-04-13: PR #16 (timers)
 - 2026-04-14: PR #17 (prefers-reduced-motion)
 - 2026-04-15: PR #18 (gzip compression)
-- 2026-04-16: Verified all PRs open, no new work needed, updated monthly issue
+- 2026-04-16: Verified all PRs open, updated monthly issue
+- 2026-04-17: Verified all PRs still open, updated monthly issue #13
