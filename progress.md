@@ -1,6 +1,6 @@
 # Cardamon Optimisation Progress
 
-**Last Updated:** 2026-04-18
+**Last Updated:** 2026-04-20
 
 ## Completed Tasks
 
@@ -12,34 +12,30 @@
 
 ### 🔧 Task 2: Network Transfer - Remove Unused Dependencies
 - **PR #12**: "Remove unused external dependencies to reduce network transfer"
-- **Branch**: cardamon/remove-unused-dependencies-8ad77017f52973df
-- **Status**: Open, awaiting merge
-- **Savings**: ~3.5MB across all 3 pages combined
+- **PR #20**: "Remove unused external JS/CSS dependencies (Network Transfer Reduction)" — more complete
+- **Status**: Both open, awaiting merge
 
 ### 🔧 Task 3: Frontend CPU - Remove Unnecessary Timers
 - **PR #16**: "Remove unnecessary CPU-intensive timers (Frontend CPU pillar)"
-- **Branch**: cardamon/remove-unnecessary-timers-b956f771ade94fbf
 - **Status**: Open, awaiting merge
 
 ### 🔧 Task 4: Screen Energy - prefers-reduced-motion CSS
-- **PR #17**: prefers-reduced-motion CSS (branch: cardamon/prefers-reduced-motion-wf24384123711...)
+- **PR #17**: prefers-reduced-motion CSS
 - **Status**: Open, awaiting merge
-- Stops 19 infinite CSS animations across all 3 pages
 
 ### 🔧 Task 5: Server Config - Gzip Compression
-- **PR #18**: Enable gzip compression in nginx (branch: cardamon/add-gzip-compression-wf24439579775)
+- **PR #18**: Enable gzip compression in nginx
 - **Status**: Open, awaiting merge
-- Estimated ~65-75% reduction in HTML transfer sizes
 
 ### Other PRs (from other agents)
-- **PR #14**: Cache-Control headers (from Daily Efficiency Improver) - Open
-- **PR #19**: Lazy loading images (from Daily Efficiency Improver) - Open
+- **PR #14**: Cache-Control headers - Open
+- **PR #19**: Lazy loading images - Open
 
 ## Remaining Tasks
 
 ### None identified
 All major Cardamon pillars have been addressed:
-- Network Transfer: PR #12 (dependencies) + PR #18 (gzip)
+- Network Transfer: PR #12 + PR #20 (dependencies) + PR #18 (gzip)
 - Frontend CPU: PR #16 (timers)
 - Screen Energy: PR #17 (prefers-reduced-motion)
 - Server Config: PR #18 (gzip) + PR #14 (cache headers)
@@ -52,3 +48,5 @@ All major Cardamon pillars have been addressed:
 - 2026-04-16: Verified all PRs open, updated monthly issue
 - 2026-04-17: Verified all PRs still open, updated monthly issue #13
 - 2026-04-18: Verified all 6 PRs still open, updated monthly issue #13
+- 2026-04-19: Verified all 6 PRs still open; PR #20 created (more complete dependency removal)
+- 2026-04-20: Verified all 7 PRs still open, updated monthly issue #13
