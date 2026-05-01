@@ -1,6 +1,6 @@
 # Cardamon Optimisation Progress
 
-**Last Updated:** 2026-04-29
+**Last Updated:** 2026-05-01
 
 ## Completed Tasks
 
@@ -40,6 +40,10 @@ All major Cardamon pillars have been addressed:
 - Screen Energy: PR #17 (prefers-reduced-motion)
 - Server Config: PR #18 (gzip) + PR #14 (cache headers)
 
+## Monthly Issues
+- April 2026: Issue #13
+- May 2026: Issue created (2026-05-01)
+
 ## Run Log
 - 2026-04-13: Discovery + PR #12
 - 2026-04-13: PR #16 (timers)
@@ -49,14 +53,5 @@ All major Cardamon pillars have been addressed:
 - 2026-04-17: Verified all PRs still open, updated monthly issue #13
 - 2026-04-18: Verified all 6 PRs still open, updated monthly issue #13
 - 2026-04-19: Verified all 7 PRs still open; PR #20 created (more complete dependency removal)
-- 2026-04-20: Verified all 7 PRs still open, updated monthly issue #13
-- 2026-04-21: Verified all 7 PRs still open, updated monthly issue #13
-- 2026-04-22: Verified all 7 PRs still open, updated monthly issue #13
-- 2026-04-23: Verified all 7 PRs still open, updated monthly issue #13
-- 2026-04-24: Verified all 7 PRs still open, updated monthly issue #13
-- 2026-04-25: Verified all 7 PRs still open, updated monthly issue #13
-- 2026-04-26: Verified all 7 PRs still open, updated monthly issue #13
-- 2026-04-27: Verified all 7 PRs still open, updated monthly issue #13
-- 2026-04-28: Verified all 7 PRs still open, updated monthly issue #13
-- 2026-04-29: Verified all 7 PRs still open, updated monthly issue #13
-- 2026-04-30: Verified all 7 PRs still open, updated monthly issue #13
+- 2026-04-20 to 2026-04-30: Verified all 7 PRs still open, updated monthly issue #13
+- 2026-05-01: Created May monthly issue; all 7 PRs still open
