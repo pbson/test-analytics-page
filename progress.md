@@ -1,6 +1,6 @@
 # Cardamon Optimisation Progress
 
-**Last Updated:** 2026-05-11
+**Last Updated:** 2026-05-12
 
 ## Completed Tasks
 
@@ -55,13 +55,5 @@ All major Cardamon pillars have been addressed:
 - 2026-04-19: Verified all 7 PRs still open; PR #20 created (more complete dependency removal)
 - 2026-04-20 to 2026-04-30: Verified all 7 PRs still open, updated monthly issue #13
 - 2026-05-01: Created May monthly issue #22; all 7 PRs still open
-- 2026-05-02: Verified all 7 PRs still open; updated monthly issue #22
-- 2026-05-03: Verified all 7 PRs still open; updated monthly issue #22
-- 2026-05-04: Verified all 7 PRs still open; updated monthly issue #22
-- 2026-05-05: Verified all 7 PRs still open (#12, #14, #16, #17, #18, #19, #20); updated monthly issue #22
-- 2026-05-06: Verified all 7 PRs still open (#12, #14, #16, #17, #18, #19, #20); updated monthly issue #22
-- 2026-05-07: Verified all 7 PRs still open (#12, #14, #16, #17, #18, #19, #20); updated monthly issue #22
-- 2026-05-08: Verified all 7 PRs still open (#12, #14, #16, #17, #18, #19, #20); updated monthly issue #22
-- 2026-05-09: Verified all 7 PRs still open (#12, #14, #16, #17, #18, #19, #20); updated monthly issue #22
-- 2026-05-10: Verified all 7 PRs still open (#12, #14, #16, #17, #18, #19, #20); updated monthly issue #22
-- 2026-05-11: Verified all 7 PRs still open (#12, #14, #16, #17, #18, #19, #20); updated monthly issue #22
+- 2026-05-02 to 2026-05-11: Verified all 7 PRs still open; updated monthly issue #22
+- 2026-05-12: Verified all 7 PRs still open (#12, #14, #16, #17, #18, #19, #20); updated monthly issue #22
