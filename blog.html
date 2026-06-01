@@ -642,54 +642,6 @@
         console.log('Search index built:', Object.keys(index).length, 'terms');
       })();
 
-      // ===== UNNECESSARY: Fetch and parse RSS feeds every 30 seconds =====
-      setInterval(function() {
-        var feeds = [
-          'https://blog.github.com/feed/',
-          'https://vercel.com/atom',
-          'https://cloudflare.com/rss/'
-        ];
-        feeds.forEach(function(feedUrl) {
-          fetch(feedUrl)
-            .then(function(r) { return r.text(); })
-            .then(function(xml) {
-              window['__feed_' + feedUrl.replace(/[^a-z]/g, '')] = xml.length;
-            })
-            .catch(function() {});
-        });
-      }, 30000);
-
-      // ===== UNNECESSARY: Check window focus every second =====
-      var focusLog = [];
-      setInterval(function() {
-        focusLog.push({
-          focused: document.hasFocus(),
-          visible: document.visibilityState === 'visible',
-          timestamp: Date.now(),
-          scrollY: window.scrollY,
-          mouseActive: window.__lastMouseMove ? (Date.now() - window.__lastMouseMove < 5000) : false
-        });
-        // Keep only last 500 entries (but still wastes memory)
-        if (focusLog.length > 500) focusLog = focusLog.slice(-250);
-        window.__focusLog = focusLog;
-      }, 1000);
-
-      document.addEventListener('mousemove', function() {
-        window.__lastMouseMove = Date.now();
-      });
-
-      // ===== UNNECESSARY: Calculate reading time for every heading dynamically =====
-      setInterval(function() {
-        var headings = document.querySelectorAll('h2, h3');
-        headings.forEach(function(h) {
-          var words = h.textContent.split(' ').length;
-          var readTime = Math.ceil(words / 200);
-          h.setAttribute('data-read-time', readTime + 'min');
-          h.setAttribute('data-word-count', words);
-          h.setAttribute('data-char-count', h.textContent.length);
-          h.setAttribute('data-timestamp', new Date().toISOString());
-        });
-      }, 5000);
 
       // ===== LODASH + MOMENT (whole libs for trivial use) =====
       var blogData = {
