@@ -1,6 +1,6 @@
 # Cardamon Optimisation Progress
 
-**Last Updated:** 2026-05-14
+**Last Updated:** 2026-06-03
 
 ## Completed Tasks
 
@@ -10,39 +10,45 @@
 
 ## Created PRs
 
-### 🔧 Task 2: Network Transfer - Remove Unused Dependencies
-- **PR #12**: "Remove unused external dependencies to reduce network transfer"
-- **PR #20**: "Remove unused external JS/CSS dependencies (Network Transfer Reduction)" — more complete
-- **Status**: Both open, awaiting merge
+### 🔧 Network Transfer - Remove Unused Dependencies
+- **PR #27**: "Remove unused Plotly and D3 libraries" — 3.4MB saved
+- **PR #20**: "Remove unused external JS/CSS dependencies" — comprehensive removal
+- **PR #12**: "Remove unused external dependencies" — initial PR
+- **Status**: All open/draft, awaiting merge
 
-### 🔧 Task 3: Frontend CPU - Remove Unnecessary Timers
-- **PR #16**: "Remove unnecessary CPU-intensive timers (Frontend CPU pillar)"
-- **Status**: Open, awaiting merge
-
-### 🔧 Task 4: Screen Energy - prefers-reduced-motion CSS
-- **PR #17**: prefers-reduced-motion CSS
-- **Status**: Open, awaiting merge
-
-### 🔧 Task 5: Server Config - Gzip Compression
+### 🔧 Network Transfer - Server Compression
 - **PR #18**: Enable gzip compression in nginx
-- **Status**: Open, awaiting merge
+- **Status**: Open/draft, awaiting merge
 
-### Other PRs (from other agents)
-- **PR #14**: Cache-Control headers - Open
-- **PR #19**: Lazy loading images - Open
+### 🔧 Network Transfer - Image Optimization
+- **PR #19**: Add lazy loading to off-screen images
+- **Status**: Open/draft, awaiting merge
+
+### 🔧 Frontend CPU - Remove Unnecessary Timers
+- **PR #16**: Remove unnecessary CPU-intensive timers
+- **Status**: Open/draft, awaiting merge
+
+### 🔧 Screen Energy - prefers-reduced-motion CSS
+- **PR #17**: Add prefers-reduced-motion CSS support
+- **Status**: Open/draft, awaiting merge
+
+### 🔧 Server Config - Caching
+- **PR #14**: Add Cache-Control headers to static assets
+- **Status**: Open/draft, awaiting merge
 
 ## Remaining Tasks
 
 ### None identified
-All major Cardamon pillars have been addressed:
-- Network Transfer: PR #12 + PR #20 (dependencies) + PR #18 (gzip)
+All major Cardamon pillars have been addressed with draft PRs:
+- Network Transfer: PR #27 + PR #20 (dependencies) + PR #18 (gzip) + PR #19 (images)
 - Frontend CPU: PR #16 (timers)
 - Screen Energy: PR #17 (prefers-reduced-motion)
-- Server Config: PR #18 (gzip) + PR #14 (cache headers)
+- Server Config: PR #14 (cache headers) + PR #18 (gzip)
 
 ## Monthly Issues
 - April 2026: Issue #13
 - May 2026: Issue #22
+- June 2026: Issue #26
 
 ## Run Log
 - 2026-04-13: Discovery + PR #12
@@ -57,3 +63,4 @@ All major Cardamon pillars have been addressed:
 - 2026-05-01: Created May monthly issue #22; all 7 PRs still open
 - 2026-05-02 to 2026-05-13: Verified all 7 PRs still open; updated monthly issue #22
 - 2026-05-14: Verified all 7 PRs still open (#12, #14, #16, #17, #18, #19, #20); updated monthly issue #22
+- 2026-06-03: Verified all 7 PRs still open; PR #27 created (3.4MB Plotly+D3); updated monthly issue #26
